@@ -1,0 +1,43 @@
+{
+  "name": "charityfundpoolnew",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/jest": "^19.2.3",
+    "@types/lodash": "^4.14.64",
+    "@types/node": "^7.0.22",
+    "@types/react": "^15.0.24",
+    "@types/react-dom": "^15.5.0",
+    "@types/react-router": "^4.0.9",
+    "@types/react-router-dom": "^4.0.4",
+    "bootstrap": "^3.3.7",
+    "firebase": "^4.0.0",
+    "mobx": "^3.1.9",
+    "mobx-react": "^4.1.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-modal-dialog": "^4.0.7",
+    "react-router-dom": "^4.1.1"
+  },
+  "devDependencies": {
+    "react-scripts-ts": "2.0.1",
+    "classnames": "^2.2.5",
+    "firebase": "^3.3.0",
+    "google-maps-react": "^1.0.19",
+    "lodash": "^4.15.0",
+    "moment": "^2.15.1",
+    "moment-range": "^2.2.0",
+    "react-firebase-file-uploader": "^2.1.1",
+    "react-google-maps": "^6.0.1",
+    "react-masking": "^0.1.7",
+    "react-router": "^2.8.1",
+    "require": "^2.4.20",
+    "react-day-picker": "^3.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  }
+}

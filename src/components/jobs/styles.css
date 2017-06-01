@@ -1,0 +1,43 @@
+
+.inner-bg {
+    padding: 120px 0 200px 0;
+}
+
+.subscribe { margin-top: 35px; }
+
+.subscribe input[type="text"] {
+	width: 380px;
+	height: 50px;
+	margin: 0;
+	padding: 0 20px;
+	vertical-align: middle;
+	background: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 50px;
+	color: #888;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-o-transition: all .3s;
+	-moz-transition: all .3s;
+	-webkit-transition: all .3s;
+	-ms-transition: all .3s;
+	transition: all .3s;
+}
+.subscribe input[type="text"].subscribe-error { color: #e8643e; }
+
+.subscribe input[type="text"]:focus {
+	outline: 0; background: #fff; border: 3px solid #e8643e;
+    -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+}
+.subscribe input[type="text"]::-moz-placeholder { color: #888; }
+.subscribe input[type="text"]:-ms-input-placeholder { color: #888; }
+.subscribe input[type="text"]::-webkit-input-placeholder { color: #888; }
+
+
+

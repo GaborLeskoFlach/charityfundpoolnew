@@ -20,9 +20,9 @@ interface INeedHelpIndividualRegistrations{
 
 @observer
 export class NeedHelpIndividualRegistrations extends React.Component<INeedHelpIndividualRegistrations,{}>{
-    data : Array<IRegistrationNeedHelpInd>
     controller : AdministrationController
     @observable loaded : boolean
+    @observable data : Array<IRegistrationNeedHelpInd>
 
     constructor(props){
         super(props)
@@ -31,20 +31,22 @@ export class NeedHelpIndividualRegistrations extends React.Component<INeedHelpIn
         this.loaded = false
     }
 
+    fetchData = () => {
+        this.loaded = false
+        this.controller.getRegistrationsForNeedHelpInd().then(response =>{
+            this.data = convertData(response, this.dataFilterConfig())
+            this.loaded = true
+        }) 
+    }
+
     componentWillReceiveProps(newProps : INeedHelpIndividualRegistrations){
         if(newProps.active){
-            this.loaded = false
-            this.controller.getRegistrationsForNeedHelpInd().then(response =>{
-                this.loaded = true
-            }) 
+            this.fetchData()
         }
      }
 
-    componentDidMount(){
-        this.loaded = false
-        this.controller.getRegistrationsForNeedHelpInd().then(response =>{
-            this.loaded = true
-        })         
+    componentWillMount(){
+        this.fetchData()
     }
 
     renderCard = (registration : IRegistrationNeedHelpInd, index : number) => {
@@ -73,15 +75,19 @@ export class NeedHelpIndividualRegistrations extends React.Component<INeedHelpIn
     }
 
     render(){
-        if(this.data && this.props.active && this.loaded){
+        if(this.data.length > 0 && this.props.active && this.loaded){
             return(
                 <ul className="fancy-label row">
                     {
-                        convertData(this.controller.registrationsForNeedHelp_Ind, this.dataFilterConfig()).map((registration, index) => {
+                        this.data.map((registration, index) => {
                             return this.renderCard(registration, index)
                         })
                     }              
                 </ul>            
+            )
+        }else if(this.data.length === 0 && this.props.active && this.loaded){
+            return(
+                <h1>No data to display</h1>
             )
         }else{
             return <Loader type="ball-pulse" active />

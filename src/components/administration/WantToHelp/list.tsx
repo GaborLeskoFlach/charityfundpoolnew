@@ -32,30 +32,23 @@ export class WantToHelpRegistrations extends React.Component<IWantToHelpRegistra
         this.loaded = false
     }
 
-    /*
-    componentWillReceiveProps(newProps : IWantToHelpRegistrations){
-        if(newProps.active){
-            this.loaded = false
-            this.controller.getRegistrationsForWantToHelp().then(() => {
-                this.loaded = true
-            }) 
-        }
-     }*/
-
-    componentDidMount(){
+    fetchData = () => {
         this.loaded = false
-        this.controller.getRegistrationsForWantToHelp().then(response =>{
+        this.controller.getRegistrationsForWantToHelp().then((response) => {
+            this.data = convertData(response, this.dataFilterConfig())
             this.loaded = true
         })         
-    }     
-
-    shouldComponentUpdate(nextProps : IWantToHelpRegistrations, nextState){
-        if (nextProps.active){
-            return true
-        }else{
-            return false
-        }
     }
+
+    componentWillReceiveProps(newProps : IWantToHelpRegistrations){
+        if(newProps.active){
+            this.fetchData()           
+        }
+     }
+
+    componentWillMount(){
+        this.fetchData()        
+    }     
 
     renderCard = (registration : IRegistrationWantToHelp, index : number) => {
         return(
@@ -86,11 +79,15 @@ export class WantToHelpRegistrations extends React.Component<IWantToHelpRegistra
             return(
                 <ul className="fancy-label row">
                     {
-                        convertData(this.controller.registrationsForWantToHelp, this.dataFilterConfig()).map((registration, index) => {
+                        this.data.map((registration, index) => {
                             return this.renderCard(registration, index)
                         })
                     }              
                 </ul>            
+            )
+        }else if(this.data.length === 0 && this.props.active && this.loaded){
+            return(
+                <h1>No data to display</h1>
             )
         }else{
             return <Loader type="ball-pulse" active />

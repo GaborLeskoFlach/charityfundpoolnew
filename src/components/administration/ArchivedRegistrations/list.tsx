@@ -113,7 +113,7 @@ export class ArchivedRegistrations extends React.Component<IArchivedRegistration
 
 const ArchivedIndividualRegistrationsTab = ({selectedTab, tabIndActive, onDeleteRegistration, onActivateRegistration}) => {
     return(
-        <div className={ selectedTab === '0' ? 'tab-pane fade in active' : 'tab-pane fade '} id="peopleNeedHelpArchived">            
+        <div className={ selectedTab === 0 ? 'tab-pane fade in active' : 'tab-pane fade '} id="peopleNeedHelpArchived">            
             <NeedHelpIndividualRegistrations 
                 filters={null}
                 showArchivedItemsOnly={true} 
@@ -130,7 +130,7 @@ const ArchivedIndividualRegistrationsTab = ({selectedTab, tabIndActive, onDelete
 
 const ArchivedOrganisationRegistrationsTab = ({selectedTab, tabOrgActive, onDeleteRegistration, onActivateRegistration}) => {
     return(
-        <div className={ selectedTab === '1' ? 'tab-pane fade in active' : 'tab-pane fade '} id="organizationsNeedHelpArchived">            
+        <div className={ selectedTab === 1 ? 'tab-pane fade in active' : 'tab-pane fade '} id="organizationsNeedHelpArchived">            
             <NeedHelpOrganisationRegistrations 
                 filters={null}
                 showArchivedItemsOnly={true}
@@ -147,7 +147,7 @@ const ArchivedOrganisationRegistrationsTab = ({selectedTab, tabOrgActive, onDele
 
 const ArchivedWantToHelpRegistrationsTab = ({selectedTab, tabWantActive, onDeleteRegistration, onActivateRegistration}) => {
     return(
-        <div className={ selectedTab === '2' ? 'tab-pane fade in active' : 'tab-pane fade '} id="peopleWantToHelpArchived">                                                                                                          
+        <div className={ selectedTab === 2 ? 'tab-pane fade in active' : 'tab-pane fade '} id="peopleWantToHelpArchived">                                                                                                          
             <WantToHelpRegistrations 
                 filters={null}
                 showArchivedItemsOnly={true}

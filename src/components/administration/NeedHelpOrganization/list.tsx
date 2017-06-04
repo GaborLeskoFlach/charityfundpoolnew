@@ -31,30 +31,23 @@ export class NeedHelpOrganisationRegistrations extends React.Component<INeedHelp
         this.loaded = false
     }
 
-    /*
-    componentWillReceiveProps(newProps : INeedHelpOrganisationRegistrations){
-        if(newProps.active){
-            this.loaded = false
-            this.controller.getRegistrationsForNeedHelpOrg().then(response =>{
-                this.loaded = true
-            }) 
-        }
-     }*/
-
-    componentDidMount(){
+    fetchData = () => {
         this.loaded = false
         this.controller.getRegistrationsForNeedHelpOrg().then(response =>{
+           this.data = convertData(response, this.dataFilterConfig())
             this.loaded = true
-        })         
-    }          
-
-    shouldComponentUpdate(nextProps : INeedHelpOrganisationRegistrations, nextState){
-        if (nextProps.active){
-            return true
-        }else{
-            return false
-        }
+        })  
     }
+    
+    componentWillReceiveProps(newProps : INeedHelpOrganisationRegistrations){
+        if(newProps.active){
+            this.fetchData()
+        }
+     }
+
+    componentWillMount(){
+        this.fetchData()
+    }          
 
     renderCard = (registration : IRegistrationNeedHelpOrg, index : number) => {
         return(
@@ -80,16 +73,18 @@ export class NeedHelpOrganisationRegistrations extends React.Component<INeedHelp
     }
 
     render(){
-        if(this.data && this.props.active && this.loaded){
+        if(this.data.length > 0 && this.props.active && this.loaded){
             return(
                 <ul className="fancy-label row">
                     {
-                        convertData(this.controller.registrationsForNeedHelp_Org, this.dataFilterConfig()).map((registration, index) => {
+                        this.data.map((registration, index) => {
                             return this.renderCard(registration, index)
                         })
                     }              
                 </ul>            
             )
+        } else if(this.data.length === 0 && this.props.active && this.loaded){
+            return <h1>No data to display</h1>
         }else{
             return <Loader type="ball-pulse" active />
         }

@@ -24,7 +24,7 @@ export default class SingleDate extends React.Component<ISingleDateProps,{}> {
     }
   }
   
-  componentWillReceiveProps = (nextProps : ISingleDateProps) => {
+  componentWillReceiveProps(nextProps : ISingleDateProps){
     if(nextProps.setSingleDate){
         this.selectedDay = nextProps.setSingleDate
     }

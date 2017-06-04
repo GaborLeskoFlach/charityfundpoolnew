@@ -197,7 +197,8 @@ export class Administration extends React.Component<{},{}>{
                 this.tabArchivedActive = true            
             break
         }
-        this.selectedTab = e.target.id      
+        this.selectedTab = e.target.id
+        this.forceUpdate()   
     }
 
     render(){

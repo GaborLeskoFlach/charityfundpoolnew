@@ -9,6 +9,7 @@ import { convertData } from '../../utils/utils'
 import {observer} from 'mobx-react'
 import { map } from 'lodash'
 const Mask = require('react-masking').default
+import Loader from 'react-loaders'
 import { DonationPaymentConfiguration, IPaymentSelect } from './donationPaymentConfiguration'
 
 interface IRouteParams{
@@ -212,13 +213,7 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
         let btnFloatRight : React.CSSProperties = { float : 'right'}
 
         if(this.controller.isLoading){
-            return (
-                <div className="container">
-                    <div className="section-title">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            )
+            return <Loader type="ball-pulse" active />
         }else{
             return (
                 <div className="container">

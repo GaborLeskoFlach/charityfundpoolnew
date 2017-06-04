@@ -883,3 +883,20 @@ a.navbar-brand {
 
 /*======================END============================*/
 
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}
+
+div.ball-pulse {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;	
+}
+
+.ball-pulse > div {
+  background-color: #00aeef;  
+}

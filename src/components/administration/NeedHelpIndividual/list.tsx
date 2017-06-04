@@ -5,6 +5,7 @@ import { AdministrationController } from '../controller'
 import { convertData } from '../../../utils/utils'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
+import Loader from 'react-loaders'
 
 interface INeedHelpIndividualRegistrations{
     filters : Array<any>
@@ -39,19 +40,11 @@ export class NeedHelpIndividualRegistrations extends React.Component<INeedHelpIn
         }
      }
 
-    componentDidMount = () =>{
+    componentDidMount(){
         this.loaded = false
         this.controller.getRegistrationsForNeedHelpInd().then(response =>{
             this.loaded = true
         })         
-    }
-
-    shouldComponentUpdate(nextProps : INeedHelpIndividualRegistrations, nextState){
-        if (nextProps.active){
-            return true
-        }else{
-            return false
-        }
     }
 
     renderCard = (registration : IRegistrationNeedHelpInd, index : number) => {
@@ -91,13 +84,7 @@ export class NeedHelpIndividualRegistrations extends React.Component<INeedHelpIn
                 </ul>            
             )
         }else{
-            return (
-                <div className="container">
-                    <div className="section-title">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            )
+            return <Loader type="ball-pulse" active />
         }
     }
 }

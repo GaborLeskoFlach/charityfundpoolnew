@@ -32,7 +32,7 @@ export class NotificationsSent extends React.Component<INotificationsSent,{}>{
         this.forceUpdate()
     }
 
-    componentWillMount = () => {
+    componentWillMount(){
         this.selectedTab = this.props.status
     }    
 

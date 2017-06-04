@@ -40,7 +40,7 @@ export class Notifications extends React.Component<{},{}>{
         console.log('Job has been DELETED => ', id, NotificationStatus[toStatus])
     }
 
-    componentWillMount = () => {
+    componentWillMount(){
         const path : string = this.context.router.route.location.pathname        
         if(path){            
             const paths : Array<string> = path.split('/')

@@ -32,7 +32,7 @@ export class NotificationsReceived extends React.Component<INotificationsReceive
         this.forceUpdate()
     }
 
-    componentWillMount = () => {
+    componentWillMount(){
         if(this.props.status){    
             this.selectedTab = this.props.status
         }

@@ -50,11 +50,11 @@ class Contents extends React.Component<IContents,IState>{
     e.preventDefault()
   }
 
-  componentDidMount = () => {
+  componentDidMount(){
     this.renderAutoComplete()
   }
 
-  componentDidUpdate = (prevProps : IContents) => {
+  componentDidUpdate(prevProps : IContents){
     const {map} = this.props
     if (map !== prevProps.map) {
       this.renderAutoComplete()

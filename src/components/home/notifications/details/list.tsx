@@ -136,7 +136,7 @@ export class NotificationDetails extends React.Component<INotificationsDetails,{
         }
     }
 
-    componentWillMount = () => {
+    componentWillMount(){
         this.loaded = false
         const { notificationStatus, notificationType } = this.props
         this.filteredData = this.data.filter(x => x.type === notificationType && x.status === notificationStatus)

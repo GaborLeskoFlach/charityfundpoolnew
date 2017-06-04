@@ -6,6 +6,7 @@ import { RegisterWantToHelpController } from './controller'
 import { _firebaseAuth } from '../../firebaseAuth/component'
 import { IMultiSelect, DataFilter, IRouteParams_Registrations } from '../../interfaces'
 import { convertData, convertFromObservable } from '../../../utils/utils'
+import Loader from 'react-loaders'
 
 const Mask = require('react-masking').default
 import './styles.css'
@@ -260,7 +261,7 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
     resetForm = (event) => {
         event.preventDefault()
         this.controller.resetForm()
-        this.context.router.history.push('/home/registration')
+        this.context.router.history.push('/home/registrations')
     }
 
     render(){
@@ -268,13 +269,7 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
 
         if(this.controller.isLoading)
         {
-            return ( 
-                <div className="container">
-                    <div className="section-title">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            )
+            return  <Loader type="ball-pulse" active />
         }else{
             return (        
                 <div className="container">

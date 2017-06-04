@@ -9,7 +9,7 @@ import { observable } from 'mobx'
 import { RegisterNeedHelpController } from './controller'
 import { CreateNewNeedForOrgsComponent } from './addNewNeedForOrganisations/component'
 import { CreateNewNeedForIndividualsComponent } from './addNewNeedForIndividuals/component'
-
+import Loader from 'react-loaders'
 import { _firebaseAuth } from '../../firebaseAuth/component'
 import GoogleAddress from '../../googleMaps/autoCompleteWithoutForm'
 
@@ -329,8 +329,8 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
             marginBottom : 0,
             textAlign : 'left'
         }
-
         return (
+    
             <div className="row">
 
                 <div className="col-sm-12">
@@ -355,7 +355,7 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
                 </div>
 
             </div>
-        )        
+        )      
     }
 
 
@@ -367,13 +367,7 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
 
         if(this.controller.isLoading)
         {
-            return ( 
-                <div className="container">
-                    <div className="section-title">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            )
+            return <Loader type="ball-pulse" active />
         }else{      
             return(
                 <div className="container">
@@ -388,30 +382,10 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="contact-form">
-                                <form ref="registrationForm" onSubmit={this.register.bind(this)}>
-
-                                    {/*
-                                    <div className="form-group">
-                                        <label htmlFor="registrationTion">Registration Type</label>
-                                        <div>
-                                            <select className="form-control" id="registrationType" 
-                                                    value={this.controller.registrationType}                                                     
-                                                    onChange={this.handleRegistrationTypeChange}>                                                
-                                                <option value="Org">I need help {Constants.registrationTypeNeedHelpForMyCharity}</option>
-                                                <option value="Individual">I need help {Constants.registrationTypeNeedHelpForMySelf}</option>
-                                            </select>
-                                        </div>                                
-                                    </div>
-                                    */}
-
+                                <form ref="registrationForm" onSubmit={this.register.bind(this)}>                                    
                                     {
                                         this.renderRegistrationTypeSelectionTabs()
                                     }
-
-                                    {/*
-                                        this.controller.registrationType === 'Individual' ? <RegisterIndividualComponent controller={this.controller} /> : <RegisterOrganisationComponent controller={this.controller} />
-                                    */}
-
                                     {
                                         this.controller.hasRegistered &&
                                         <div className="section-title">
@@ -1066,10 +1040,10 @@ export class RegisterOrganisationComponent extends React.Component<IRegistration
                 this.props.controller.registrationNeedHelpOrg.email = event.target.value
                 this.props.controller.registerOrganisationFormState.email.fieldValidationError = ''
                 break
-            //case RegistrationFields.websiteLink:
-            //    this.props.controller.registrationNeedHelpOrg.websiteLink = event.target.value
-            //    this.props.controller.registerOrganisationFormState.websiteLink.fieldValidationError = ''
-            //    break
+            case RegistrationFields.websiteLink:
+                this.props.controller.registrationNeedHelpOrg.websiteLink = event.target.value
+                //this.props.controller.registerOrganisationFormState.websiteLink.fieldValidationError = ''
+                break
             case RegistrationFields.whatWeDo:
                 this.props.controller.registrationNeedHelpOrg.whatWeDo = event.target.value
                 this.props.controller.registerOrganisationFormState.whatWeDo.fieldValidationError = ''

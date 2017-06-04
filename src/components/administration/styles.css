@@ -1,3 +1,7 @@
+div.profile-upload > a {
+    cursor: pointer
+}
+
 
 .profileCard {
     padding-top: 20px;

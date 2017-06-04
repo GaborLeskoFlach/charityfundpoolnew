@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { IRegistrationNeedHelpInd, DataFilter, IMarker, IPosition } from '../interfaces'
 import { convertData } from '../../utils/utils'
-
+import Loader from 'react-loaders'
 import { ResponsiveTiles } from './../lists/responsiveTiles'
 
 import GoogleMarkers from './../googleMaps/clickableMarkers'
@@ -182,13 +182,7 @@ export class SearchResults extends React.Component<ISearchResults,{}>{
 
     render(){
         if(this.controller.isLoading){
-            return (
-                <div className="container">
-                    <div className="section-title">
-                        <h1>Searching...</h1>
-                    </div>
-                </div>
-            )
+            return <Loader type="ball-pulse" active />
         }else{
             if(this.props.postCode){
                 let filteredData = convertData<IRegistrationNeedHelpInd>(this.controller.registrationsForNeedHelp_Ind, DataFilter.ActiveOnly)

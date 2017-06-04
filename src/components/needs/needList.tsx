@@ -5,13 +5,18 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import { CauseController } from './controller'
 import { NeedCard } from './needCard'
 import { convertData } from '../../utils/utils'
+import Loader from 'react-loaders'
 import { observer } from 'mobx-react'
-import { observable } from 'mobx' 
+import { observable } from 'mobx'
 
 @observer
 export class NeedList extends React.Component<{},{}>{
     controller: CauseController
     @observable selectedTab : string = '0'
+
+    static contextTypes: React.ValidationMap<any> = {
+        router: React.PropTypes.func.isRequired
+    }
 
     constructor(props : any)
     {
@@ -19,44 +24,9 @@ export class NeedList extends React.Component<{},{}>{
         this.controller = new CauseController()
     }
 
-    componentWillMount() {
-        this.controller.isLoading = true
-        this.controller.getCauses().then(response => {
-            this.controller.getArchivedCauses().then(response => {
-                this.controller.isLoading = false
-            })            
-        })
-    }
-
     handleTabSelection = (e) => {
         this.selectedTab = e.target.id
     }
-
-    /*
-    onClickArchiveNeed = (need : ICause) => {
-        event.preventDefault()
-        this.controller.archiveCause(need.ID).then(response => {
-            console.log('Awesome')
-        })
-    }
-
-    onClickEditNeed = (need : ICause) => {
-        event.preventDefault()
-        console.log('Edit Cause => {0}', need.ID)
-    }
-
-    onClickDonateNeed = (need : ICause) => {
-        this.context.router.history.push('')
-    }
-
-    renderNeedCard = (need : ICause, index : number) => {
-        return(
-            <li key={index} className="col-sm-3">
-                <NeedCard need={need} onClickArchive={this.onClickArchiveNeed} onClickDonate={this.onClickDonateNeed} onClickEdit={this.onClickEditNeed}/>
-            </li>  
-        )
-    }
-    */
 
     render(){
         return(
@@ -99,15 +69,41 @@ interface ITabContent{
 @observer
 export class TabContent extends React.Component<ITabContent, {}>{
     
+    static contextTypes: React.ValidationMap<any> = {
+        router: React.PropTypes.func.isRequired
+    }
+
     constructor(props){
         super(props)
     }
 
+    componentWillMount() {
+
+        let { isLoading } = this.props.controller
+        const { getArchivedCauses, getCauses } = this.props.controller
+
+        isLoading = true
+        const path : string = this.context.router.route.location.pathname        
+        if(path){            
+            const paths : Array<string> = path.split('/')
+            switch(paths[2]){
+                case 'activeNeeds':
+                    getCauses().then(response => {
+                        isLoading = false
+                    })
+                    break
+                case 'archiveNeeds':
+                    getArchivedCauses().then(response => {
+                        isLoading = false
+                    })
+                    break
+            }
+        }
+    }
+
     onClickArchiveNeed = (need : IOrgNeedHelpWithListItem, e : any) => {
         event.preventDefault()
-        this.props.controller.archiveCause(need.ID).then(response => {
-            console.log('Awesome')
-        })                
+        this.props.controller.archiveCause(need.ID)
     }
 
     onClickEditNeed = (need : IOrgNeedHelpWithListItem, e : any) => {
@@ -138,7 +134,7 @@ export class TabContent extends React.Component<ITabContent, {}>{
         const { controller, selectedTab } = this.props
 
         if(controller.isLoading){
-            return null
+           return  <Loader type="ball-pulse" active />
         }else{
             return(
                     <fieldset className="tab-content">

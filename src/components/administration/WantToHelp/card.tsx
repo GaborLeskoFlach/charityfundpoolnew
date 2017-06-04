@@ -5,6 +5,7 @@ import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { FirebaseFileUpload } from '../ImageUpload/component'
 import { AdministrationController } from '../controller'
+import Loader from 'react-loaders'
 import '../styles.css'
 
 let ModalContainer = require('react-modal-dialog').ModalContainer
@@ -33,7 +34,7 @@ export class Card extends React.Component<ICard, {}>{
         this.mappingInfo = null
     }
 
-    componentDidMount = () => {        
+    componentDidMount(){
         if(this.props.registration.uid){
             this.isLoading = true
             getMappingInfoForUser(this.props.registration.uid).then((response) => {
@@ -43,7 +44,7 @@ export class Card extends React.Component<ICard, {}>{
         }
     }
 
-    componentWillReceiveProps = (nextProps : ICard) => {
+    componentWillReceiveProps(nextProps : ICard){
         if(nextProps.registration.uid){
             this.isLoading = true
             getMappingInfoForUser(nextProps.registration.uid).then((response) => {
@@ -96,12 +97,8 @@ export class Card extends React.Component<ICard, {}>{
     renderArchiveButton = () =>{
         return(
             <div className="btn-group" role="group" aria-label="...">
-                <button className="btn btn-default btn-xs pull-right" onClick={this.activateRegistration}> 
-                    <span className="glyphicon glyphicon-edit"></span> Activate
-                </button>  
-                <button className="btn btn-danger btn-xs pull-left" onClick={this.deleteRegistration}> 
-                    <span className="glyphicon glyphicon-erase"></span> Erase
-                </button>                         
+                <button className="btn btn-default" onClick={this.activateRegistration}>Activate</button>  
+                <button className="btn btn-danger" onClick={this.deleteRegistration}>Erase</button>                
             </div>
         )
     }
@@ -111,23 +108,19 @@ export class Card extends React.Component<ICard, {}>{
     }
 
     renderActionButtons = () => {
-        const userAction : string = !this.props.registration.uid ? 'Enable Access' : 'Disable Access'
+        const userAction : string = !this.props.registration.uid ? 'Enable' : 'Disable'
         return(
             <div className="btn-group" role="group" aria-label="...">
-                <button className="btn btn-default btn-xs" onClick={this.editRegistration}> 
-                    <span className="glyphicon glyphicon-edit"></span> Edit
-                </button>
+                <button className="btn btn-default" onClick={this.editRegistration}>Edit</button>
                 
                 <button 
-                    className="btn btn-default btn-xs" 
+                    className="btn btn-default" 
                     onClick={this.registerUser}
                     disabled={this.isEmpty(this.props.registration.profileImageURL)}
                     title={this.isEmpty(this.props.registration.profileImageURL) ? 'Please upload a Profile Image first' : ''}> 
-                    <span className="glyphicon glyphicon-cog"></span> {userAction}
+                   {userAction}
                 </button>
-                <button className="btn btn-danger btn-xs pull-right" onClick={this.archiveRegistration}>
-                    <span className="glyphicon glyphicon-remove"></span> Remove
-                </button>
+                <button className="btn btn-danger" onClick={this.archiveRegistration}>Remove</button>
             </div>   
         )
     }
@@ -170,17 +163,7 @@ export class Card extends React.Component<ICard, {}>{
         const registration = this.props.registration        
 
         if(this.isLoading){
-            return (
-                <div className="well well-sm">
-                    <div className="row">
-                        <div className="col-sm-12">
-                            <div className="profileCard hovercard">
-                                <p>Loading...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>                
-            )
+            return <Loader type="ball-pulse" active />
         }else{
             return (
                 <div className="well well-sm">
@@ -195,16 +178,12 @@ export class Card extends React.Component<ICard, {}>{
                                         registration.profileImageURL ?
                                             <img className={this.setUserStatusIndicator()} src={registration.profileImageURL} />
                                         :                                 
-                                            <img className={this.setUserStatusIndicator()} src="../src/components/administration/ImageUpload/profileImageBlank.jpg" />
+                                            <img className={this.setUserStatusIndicator()} src="/templates/images/profileImageBlank.jpg" />
                                     }                              
                                 </div>
-                                {
-                                    !registration.profileImageURL &&
-
-                                    <div className="profile-upload">
-                                        <a onClick={this.handleClick}>Upload Image</a>
-                                    </div>
-                                }
+                                <div className="profile-upload">
+                                    <a onClick={this.handleClick}>Upload Image</a>
+                                </div>
                                 <div className="cardinfo">
                                     <div className="title">
                                         <h4>{registration.fullName}</h4>
@@ -226,7 +205,7 @@ export class Card extends React.Component<ICard, {}>{
                                     this.isShowingModal &&
                                     <ModalContainer onClose={this.handleClose}>
                                         <ModalDialog onClose={this.handleClose}>
-                                            <h1>Photo Upload</h1>
+                                            <strong>Photo Upload</strong>
                                             <div>
                                                 <FirebaseFileUpload 
                                                     onFileUploaded={this.handleFileUploaded} 
@@ -236,24 +215,7 @@ export class Card extends React.Component<ICard, {}>{
                                         </ModalDialog>
                                     </ModalContainer>                            
                                 }                            
-                            </div>                              
-                            
-                            {/*
-                            <h4>{registration.fullName}</h4>
-                            <p>Email: {registration.email}</p>
-                            <p>Phone: {registration.phoneNo}</p>
-                            <p>PostCode: {registration.postCode}</p>
-                            <p>City: {registration.citySuburb}</p>
-
-                            <p>User registered: { this.renderRegisteredFlag(registration.uid) }</p>
-
-                            {
-                                this.props.isArchived ? 
-                                    this.renderArchiveButton()
-                                :
-                                    this.renderActionButtons()
-                            }
-                            */}                                                
+                            </div>                                                                                                                  
                         </div>
                     </div>
                 </div>

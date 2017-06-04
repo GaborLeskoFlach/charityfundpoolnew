@@ -4,6 +4,7 @@ import { DashboardController } from './controller'
 import { _firebaseAuth, _firebaseApp } from '../../firebaseAuth/component'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
+import Loader from 'react-loaders'
 
 import './styles.css'
 
@@ -21,10 +22,10 @@ export class Dashboard extends React.Component<{}, {}>{
         this.controller = new DashboardController()
     }
 
-    componentWillMount = () => {
+    componentWillMount(){
+        this.controller.isLoading = true
         _firebaseApp.auth().onAuthStateChanged((user) => {
-            if (_firebaseAuth.currentUser !== null) {
-                this.controller.isLoading = true
+            if (_firebaseAuth.currentUser !== null) {                
                 this.controller.getUserRegistrationLocationByUID(_firebaseAuth.currentUser.uid).then((response) => {
                     this.controller.isLoading = false
                     this.forceUpdate()
@@ -50,6 +51,16 @@ export class Dashboard extends React.Component<{}, {}>{
         this.forceUpdate()
     }
 
+    renderDashboardRoutes = ({registrations}) => {        
+        return(
+            <Switch>
+                <Route exact path="/home/registrations" render={() => <MyRegistrations selectedTab={this.selectedTab} registrations={registrations} />} />
+                <Route exact path="/home/notificationsReceived" render={() => <MyNotificationsReceived selectedTab={this.selectedTab} />} />
+                <Route exact path="/home/notificationsSent" render={() => <MyNotificationsSent selectedTab={this.selectedTab} />} />
+            </Switch>            
+        )    
+    }
+
     render() {
 
         const registrations = this.renderRegistrationLinks()
@@ -57,10 +68,10 @@ export class Dashboard extends React.Component<{}, {}>{
         if (!_firebaseAuth.currentUser || !this.controller.userRegistrations) {
             return null
         } else if (this.controller.isLoading) {
-            return (
+            return(
                 <div className="row">
                     <div className="col-sm-3"></div>
-                    <div className="col-sm-6">Loading...</div>
+                    <div className="col-sm-6"><Loader type="ball-pulse" active /></div>
                     <div className="col-sm-3"></div>
                 </div>
             )
@@ -81,12 +92,10 @@ export class Dashboard extends React.Component<{}, {}>{
                                     <li title='Notifications Received' className={ this.selectedTab === '1' ? 'active' : ''}><Link id='1' to="/home/notificationsReceived" role="tab" data-toggle="tab"><i className="glyphicon glyphicon-log-in" /> Notifications (Received)</Link></li>
                                     <li title='Notifications Sent' className={ this.selectedTab === '2' ? 'active' : ''}><Link id='2' to="/home/notificationsSent" role="tab" data-toggle="tab"><i className="glyphicon glyphicon-log-out" /> Notifications (Sent)</Link></li>
                                 </ul>  
-                                <fieldset className="tab-content" style={innerStyle}>                            
-                                    <Switch>
-                                        <Route exact path="/home/registrations" render={() => <MyRegistrations selectedTab={this.selectedTab} registrations={registrations} />} />
-                                        <Route exact path="/home/notificationsReceived" render={() => <MyNotificationsReceived selectedTab={this.selectedTab} />} />
-                                        <Route exact path="/home/notificationsSent" render={() => <MyNotificationsSent selectedTab={this.selectedTab} />} />
-                                    </Switch>
+                                <fieldset className="tab-content" style={innerStyle}>
+                                    {
+                                        this.renderDashboardRoutes({registrations})
+                                    }
                                 </fieldset>
                             </div>
                         </div>

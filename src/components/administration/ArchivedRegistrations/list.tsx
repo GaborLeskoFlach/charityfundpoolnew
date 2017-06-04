@@ -19,55 +19,53 @@ interface IArchivedRegistrations{
 export class ArchivedRegistrations extends React.Component<IArchivedRegistrations,{}>{
     controller : AdministrationController
     @observable loaded : boolean
-    @observable tabIndActive : boolean
-    @observable tabOrgActive : boolean
-    @observable tabWantActive : boolean 
-    @observable selectedTab : string = '0'   
+    @observable selectedTab : number = 0
 
     constructor(props){
         super(props)
         this.controller = new AdministrationController()
-        this.loaded = false
-        this.tabIndActive = true
-        this.tabOrgActive = false
-        this.tabWantActive = false      
+        this.loaded = false    
     }
 
-    componentDidMount = () =>{
+    componentDidMount(){
         this.loaded = false
         this.controller.getRegistrationsForNeedHelpInd().then(response =>{
             this.loaded = true
         })         
     }
 
-    shouldComponentUpdate(nextProps : IArchivedRegistrations, nextState){
-        if (nextProps.active){
-            return true
-        }else{
-            return false
-        }
+    handleTabSelection = (e) => {               
+        this.selectedTab = parseInt(e.target.id)
+        this.forceUpdate()
     }
- 
-    handleTabSelection = (e) => {        
-        switch(e.target.id)
-        {
-            case '0':
-                this.tabIndActive = true
-                this.tabOrgActive = false
-                this.tabWantActive = false         
-            break            
-            case '1':
-                this.tabIndActive = false
-                this.tabOrgActive = true
-                this.tabWantActive = false        
-            break
-            case '2':
-                this.tabIndActive = false
-                this.tabOrgActive = false
-                this.tabWantActive = true         
-            break
+
+    renderArchivedTab = () =>{
+        switch(this.selectedTab){
+            case 0:
+                return (
+                        <ArchivedIndividualRegistrationsTab
+                            selectedTab={this.selectedTab}
+                            tabIndActive={true}
+                            onDeleteRegistration={this.props.onDeleteRegistration}
+                            onActivateRegistration={this.props.onActivateRegistration}/>
+                )
+            case 1: 
+                return (
+                        <ArchivedOrganisationRegistrationsTab
+                            selectedTab={this.selectedTab}
+                            tabOrgActive={true}
+                            onDeleteRegistration={this.props.onDeleteRegistration}
+                            onActivateRegistration={this.props.onActivateRegistration} />                    
+                )
+            case 2:
+                return (
+                        <ArchivedWantToHelpRegistrationsTab
+                            selectedTab={this.selectedTab}
+                            tabWantActive={true} 
+                            onDeleteRegistration={this.props.onDeleteRegistration}
+                            onActivateRegistration={this.props.onActivateRegistration} />                    
+                )
         }
-        this.selectedTab = e.target.id 
     }
 
     render(){
@@ -82,39 +80,20 @@ export class ArchivedRegistrations extends React.Component<IArchivedRegistration
                                     <div className="donate-tab text-center">
                                         <div id="donate">
                                             <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} value={this.selectedTab}>
-                                                <li className={ this.selectedTab === '0' ? 'active' : ''}><Link id="0" to="/administration/archivedRegistrations/peopleNeedHelp" role="tab" data-toggle="tab">People who need help</Link></li>
-                                                <li className={ this.selectedTab === '1' ? 'active' : ''}><Link id="1" to="/administration/archivedRegistrations/organizationsNeedHelp" role="tab" data-toggle="tab">Organizations need help</Link></li>
-                                                <li className={ this.selectedTab === '2' ? 'active' : ''}><Link id="2" to="/administration/archivedRegistrations/peopleWantToHelp" role="tab" data-toggle="tab">People who want to help</Link></li>
-                                            </ul>
-                                        
-                                            <fieldset className="tab-content">
-                                                <Switch>
-                                                    <Route exact path="/administration/archivedRegistrations/peopleNeedHelp" render={() => <ArchivedIndividualRegistrationsTab
-                                                                                                                                                selectedTab={this.selectedTab}
-                                                                                                                                                tabIndActive={this.tabIndActive}
-                                                                                                                                                onDeleteRegistration={this.props.onDeleteRegistration}
-                                                                                                                                                onActivateRegistration={this.props.onActivateRegistration}/> } />
-
-                                                    <Route exact path="/administration/archivedRegistrations/organizationsNeedHelp" render={() => <ArchivedOrganisationRegistrationsTab
-                                                                                                                                                    selectedTab={this.selectedTab}
-                                                                                                                                                    tabOrgActive={this.tabOrgActive}
-                                                                                                                                                    onDeleteRegistration={this.props.onDeleteRegistration}
-                                                                                                                                                    onActivateRegistration={this.props.onActivateRegistration} /> } />
-
-                                                    <Route exact path="/administration/archivedRegistrations/peopleWantToHelp" render={() => <ArchivedWantToHelpRegistrationsTab
-                                                                                                                                                selectedTab={this.selectedTab}
-                                                                                                                                                tabWantActive={this.tabWantActive} 
-                                                                                                                                                onDeleteRegistration={this.props.onDeleteRegistration}
-                                                                                                                                                onActivateRegistration={this.props.onActivateRegistration} /> } />
-
-                                                </Switch>                                        
-                                            </fieldset>
-
+                                                <li className={ this.selectedTab === 0 ? 'active' : ''}><Link id="0" to="/administration/archivedRegistrations/peopleNeedHelp" role="tab" data-toggle="tab">People who need help</Link></li>
+                                                <li className={ this.selectedTab === 1 ? 'active' : ''}><Link id="1" to="/administration/archivedRegistrations/organizationsNeedHelp" role="tab" data-toggle="tab">Organizations need help</Link></li>
+                                                <li className={ this.selectedTab === 2 ? 'active' : ''}><Link id="2" to="/administration/archivedRegistrations/peopleWantToHelp" role="tab" data-toggle="tab">People who want to help</Link></li>
+                                            </ul>                                                                                    
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="row">
+                        {
+                            this.renderArchivedTab()
+                        }
                     </div>                   
                 </div>                      
             )

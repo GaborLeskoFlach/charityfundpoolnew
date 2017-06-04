@@ -5,6 +5,7 @@ import { AdministrationController } from '../controller'
 import { convertData } from '../../../utils/utils'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
+import Loader from 'react-loaders'
 
 interface INeedHelpOrganisationRegistrations{
     filters : Array<any>
@@ -40,7 +41,7 @@ export class NeedHelpOrganisationRegistrations extends React.Component<INeedHelp
         }
      }*/
 
-    componentDidMount = () =>{
+    componentDidMount(){
         this.loaded = false
         this.controller.getRegistrationsForNeedHelpOrg().then(response =>{
             this.loaded = true
@@ -90,13 +91,7 @@ export class NeedHelpOrganisationRegistrations extends React.Component<INeedHelp
                 </ul>            
             )
         }else{
-            return (
-                <div className="container">
-                    <div className="section-title">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            )
+            return <Loader type="ball-pulse" active />
         }
     }
 }

@@ -29,7 +29,7 @@ export default class DateRange extends React.Component<IDateRangeProps,{}> {
     }
   }
 
-  componentWillReceiveProps = (nextProps : IDateRangeProps) => {
+  componentWillReceiveProps(nextProps : IDateRangeProps){
     if(nextProps.setDateRange.from){
       let rangeToSet = { from : nextProps.setDateRange.from, to : nextProps.setDateRange.to } 
       this.range = rangeToSet

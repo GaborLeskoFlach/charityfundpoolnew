@@ -76,7 +76,7 @@ export class AppFrame extends React.Component<INavigationComponentProps,{}>{
         super(props)       
     }
 
-    componentDidMount = () => {
+    componentDidMount(){
         this.isLoading = true
 
         _firebaseApp.auth().onAuthStateChanged((user) => {

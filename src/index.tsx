@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
+import 'loaders.css/loaders.css'
 
 //React 
 import * as React from 'react'

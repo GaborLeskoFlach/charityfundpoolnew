@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { IRegistrationNeedHelpOrg, RegistrationType } from '../../interfaces'
+import Loader from 'react-loaders'
 
 interface ICard{
     registration : IRegistrationNeedHelpOrg
@@ -60,30 +61,19 @@ export class Card extends React.Component<ICard, {}>{
     renderArchiveButton = () =>{
         return(
             <div className="btn-group" role="group" aria-label="...">
-                <button className="btn btn-default btn-xs pull-right" onClick={this.activateRegistration}> 
-                    <span className="glyphicon glyphicon-edit"></span> Activate
-                </button>  
-                <button className="btn btn-danger btn-xs pull-left" onClick={this.deleteRegistration}> 
-                    <span className="glyphicon glyphicon-erase"></span> Erase
-                </button>                         
+                <button className="btn btn-default" onClick={this.activateRegistration}>Activate</button>  
+                <button className="btn btn-danger" onClick={this.deleteRegistration}>Erase</button>
             </div>          
         )
     }
 
     renderActionButtons = () => {
-        const userAction : string = !this.props.registration.uid ? 'Enable Access' : 'Disable Access'
+        const userAction : string = !this.props.registration.uid ? 'Enable' : 'Disable'
         return(
             <div className="btn-group" role="group" aria-label="...">
-                <button className="btn btn-default btn-xs" onClick={this.editRegistration}> 
-                    <span className="glyphicon glyphicon-edit"></span> Edit
-                </button>
-                
-                <button className="btn btn-default btn-xs" onClick={this.registerUser}> 
-                    <span className="glyphicon glyphicon-cog"></span> {userAction}
-                </button>
-                <button className="btn btn-danger btn-xs pull-right" onClick={this.archiveRegistration}>
-                    <span className="glyphicon glyphicon-remove"></span> Remove
-                </button>
+                <button className="btn btn-default" onClick={this.editRegistration}>Edit</button>                
+                <button className="btn btn-default" onClick={this.registerUser}>{userAction}</button>
+                <button className="btn btn-danger" onClick={this.archiveRegistration}>Remove</button>
             </div>   
         )
     }

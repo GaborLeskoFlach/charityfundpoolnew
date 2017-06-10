@@ -7,6 +7,7 @@ import { WantToHelpRegistrations } from '../WantToHelp/list'
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
+import Loader from 'react-loaders'
 
 interface IArchivedRegistrations{
     filters : Array<any>
@@ -27,11 +28,14 @@ export class ArchivedRegistrations extends React.Component<IArchivedRegistration
         this.loaded = false    
     }
 
+    componentWillReceiveProps(newProps : IArchivedRegistrations){
+        if(newProps.active){
+            this.forceUpdate()
+        }
+     }
+
     componentDidMount(){
-        this.loaded = false
-        this.controller.getRegistrationsForNeedHelpInd().then(response =>{
-            this.loaded = true
-        })         
+        this.loaded = true       
     }
 
     handleTabSelection = (e) => {               
@@ -100,13 +104,7 @@ export class ArchivedRegistrations extends React.Component<IArchivedRegistration
 
 
         }else{
-            return (
-                <div className="container">
-                    <div className="section-title">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            )
+            return  <Loader type="ball-pulse" active />
         }
     }
 }

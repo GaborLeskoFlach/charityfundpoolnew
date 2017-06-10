@@ -49,16 +49,37 @@ export class NeedHelpOrganisationRegistrations extends React.Component<INeedHelp
         this.fetchData()
     }          
 
+
+    onEditRegistration = (id : string, registrationType : RegistrationType ) => {
+        this.props.onEditRegistration(id, registrationType)
+    }
+
+    onRegisterUser = (id : string, email : string, registrationType : RegistrationType, register : boolean) => {
+        this.props.onRegisterUser(id, email, registrationType, register)
+    }
+
+    onArchiveRegistration = (id : string, registrationType : RegistrationType ) => {
+        this.props.onArchiveRegistration(id, registrationType)
+    }
+
+    onActivateRegistration = (id : string, registrationType : RegistrationType) => {
+        this.props.onActivateRegistration(id,registrationType)
+    }
+
+    onDeleteRegistration = (id : string, registrationType : RegistrationType) => {
+        this.props.onDeleteRegistration(id,registrationType)
+    }
+
     renderCard = (registration : IRegistrationNeedHelpOrg, index : number) => {
         return(
             <li key={index} className="col-sm-3">
                 <Card 
                     registration={registration} 
-                    onArchiveRegistration={this.props.onArchiveRegistration}
-                    onEditRegistration={this.props.onEditRegistration}
-                    onRegisterUser={this.props.onRegisterUser} 
-                    onActivateRegistration={this.props.onActivateRegistration}
-                    onDeleteRegistration={this.props.onDeleteRegistration}
+                    onArchiveRegistration={this.onArchiveRegistration}
+                    onEditRegistration={this.onEditRegistration}
+                    onRegisterUser={this.onRegisterUser} 
+                    onActivateRegistration={this.onActivateRegistration}
+                    onDeleteRegistration={this.onDeleteRegistration}
                     isArchived={this.props.showArchivedItemsOnly} />
             </li>
         )

@@ -155,12 +155,6 @@ export enum DataFilter{
     InActiveOnly
 }
 
-export interface IRouteParams_Registrations{
-    ID : string;
-    Type : string;
-    requestType : string;
-}
-
 export enum RegistrationType{
     NeedHelpInd,
     NeedHelpOrg,

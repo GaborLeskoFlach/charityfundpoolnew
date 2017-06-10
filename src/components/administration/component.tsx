@@ -40,40 +40,7 @@ export class Administration extends React.Component<{},{}>{
         this.tabWantActive = false
         this.tabArchivedActive = false
     }
-
-    /*
-    handleTabChange = (e) => {
-
-        switch(e.target.attributes[0].value)
-        {
-            case '#organizationsNeedHelp':
-                this.tabIndActive = false
-                this.tabOrgActive = true
-                this.tabWantActive = false
-                this.tabArchivedActive = false            
-            break
-            case '#peopleNeedHelp':
-                this.tabIndActive = true
-                this.tabOrgActive = false
-                this.tabWantActive = false
-                this.tabArchivedActive = false            
-            break
-            case '#peopleWantToHelp':
-                this.tabIndActive = false
-                this.tabOrgActive = false
-                this.tabWantActive = true
-                this.tabArchivedActive = false            
-            break
-            case '#archivedRegistrations':
-                this.tabIndActive = false
-                this.tabOrgActive = false
-                this.tabWantActive = false
-                this.tabArchivedActive = true            
-            break
-        }
-    }*/
-
-    
+        
     ///
     /// DeActivating a User (should not be already registered) setting Active and ArchiveDate Flags
     ///
@@ -81,16 +48,22 @@ export class Administration extends React.Component<{},{}>{
         if(window.confirm('Are you sure you want to Archive this item?')){
             switch(regType){
                 case RegistrationType.NeedHelpInd:
-                this.controller.archiveRegistration(regType, id)
-                break
+                    this.controller.archiveRegistration(regType, id).then(() => {
+                        this.forceUpdate()
+                    })
+                    break
                 case RegistrationType.NeedHelpOrg:
-                this.controller.archiveRegistration(regType,id)
-                break
+                    this.controller.archiveRegistration(regType,id).then(() => {
+                        this.forceUpdate()
+                    })
+                    break
                 case RegistrationType.WantToHelp:
-                this.controller.archiveRegistration(regType,id)
-                break
+                    this.controller.archiveRegistration(regType,id).then(() => {
+                        this.forceUpdate()
+                    })
+                    break
             }
-        }        
+        }
     }
 
     ///
@@ -99,15 +72,21 @@ export class Administration extends React.Component<{},{}>{
     handleActivateRegistration = (id : string, regType:RegistrationType) => {
         switch(regType){
             case RegistrationType.NeedHelpInd:            
-            this.controller.activateRegistration(regType, id)
-            break
+                this.controller.activateRegistration(regType, id).then(() => {
+                    this.forceUpdate()
+                })
+                break
             case RegistrationType.NeedHelpOrg:
-            this.controller.activateRegistration(regType, id)
-            break
+                this.controller.activateRegistration(regType, id).then(() => {
+                    this.forceUpdate()
+                })
+                break
             case RegistrationType.WantToHelp:
-            this.controller.activateRegistration(regType, id)
-            break
-        }               
+                this.controller.activateRegistration(regType, id).then(() => {
+                    this.forceUpdate()
+                })
+                break
+        }
     }
 
     /// 
@@ -121,14 +100,20 @@ export class Administration extends React.Component<{},{}>{
         if(window.confirm(message)){
             switch(regType){
                 case RegistrationType.NeedHelpInd:
-                this.controller.registerUser(regType, id, email, register)
-                break
+                    this.controller.registerUser(regType, id, email, register).then(() => {
+                        this.forceUpdate()
+                    })
+                    break
                 case RegistrationType.NeedHelpOrg:
-                this.controller.registerUser(regType, id, email, register)
-                break
+                    this.controller.registerUser(regType, id, email, register).then(() => {
+                        this.forceUpdate()
+                    })
+                    break
                 case RegistrationType.WantToHelp:
-                this.controller.registerUser(regType, id, email, register)
-                break
+                    this.controller.registerUser(regType, id, email, register).then(() => {
+                        this.forceUpdate()
+                    })
+                    break
             }
         }   
     }
@@ -139,10 +124,10 @@ export class Administration extends React.Component<{},{}>{
     handleEditRegistration = (id : string, regType : RegistrationType) => {
         switch(regType){
                 case RegistrationType.NeedHelpInd:
-                    this.context.router.history.push('/register/NeedHelp/Ind/' + id)
+                    this.context.router.history.push('/register/NeedHelp/individual/' + id)
                     break
                 case RegistrationType.NeedHelpOrg:
-                    this.context.router.history.push('/register/NeedHelp/Org/' + id)
+                    this.context.router.history.push('/register/NeedHelp/organisation/' + id)
                     break
                 case RegistrationType.WantToHelp:
                     this.context.router.history.push('/register/WantToHelp/' + id)
@@ -157,13 +142,19 @@ export class Administration extends React.Component<{},{}>{
         if(window.confirm('Are you sure you want to delete this registration?')){
             switch(regType){
                     case RegistrationType.NeedHelpInd:
-                        this.controller.deleteRegistration(regType, id)
+                        this.controller.deleteRegistration(regType, id).then(() => {
+                            this.forceUpdate()
+                        })
                         break
                     case RegistrationType.NeedHelpOrg:
-                        this.controller.deleteRegistration(regType, id)
+                        this.controller.deleteRegistration(regType, id).then(() => {
+                            this.forceUpdate()
+                        })
                         break
                     case RegistrationType.WantToHelp:
-                        this.controller.deleteRegistration(regType, id)
+                        this.controller.deleteRegistration(regType, id).then(() => {
+                            this.forceUpdate()
+                        })
                         break
             }
         }
@@ -246,7 +237,7 @@ export class Administration extends React.Component<{},{}>{
                                                                                                                         handleEditRegistration={this.handleEditRegistration} 
                                                                                                                         handleRegisterUser={this.handleRegisterUser} />} />
                                                 
-                                                <Route exact path="/administration/archivedRegistrations" render={() => <ArchivedRegistrationsTab 
+                                                <Route path="/administration/archivedRegistrations" render={() => <ArchivedRegistrationsTab 
                                                                                                                             selectedTab={this.selectedTab} 
                                                                                                                             tabArchivedActive={this.tabArchivedActive}
                                                                                                                             handleDeleteRegistration={this.handleDeleteRegistration}

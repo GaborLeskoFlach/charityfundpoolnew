@@ -32,12 +32,12 @@ const _Home = () => (
     <HomeComponent />
 )
 
-const _RegisterWantToHelp = ( match : any) => (
+const _RegisterWantToHelp = ({match}) => (
     <RegisterWantToHelpComponent params={match} />
 )
 
-const _RegisterNeedHelp = () => (
-    <RegisterNeedHelpComponent params={ { ID : '', requestType : 'NeedHelp', Type : 'Ind'} } />
+const _RegisterNeedHelp = ({match}) => (
+    <RegisterNeedHelpComponent params={match} />
 )
 
 const _RegistrationConfirmation = () => (
@@ -48,7 +48,7 @@ const _WhoWeAre = () => (
     <WhoWeAreComponent />
 )
 
-const _DonateNow = ( match : any) => (
+const _DonateNow = ({match}) => (
     <DonateNowComponent params={match} />
 )
 
@@ -107,12 +107,15 @@ const CharityFundPoolApp = () => (
                     <Route exact path="/" component={_Home} />
                     <Route path="/home" component={_Home} />
 
-                    <Route path="/register/NeedHelp" component={_RegisterNeedHelp}/>
                     <Route exact path="/register/NeedHelp/individual" component={_RegisterNeedHelp} />
+                    <Route exact path="/register/NeedHelp/organisation" component={_RegisterNeedHelp} />
                     <Route exact path="/register/WantToHelp" component={_RegisterWantToHelp} /> 
+
+                    <Route path="/register/NeedHelp/individual/:id" component={_RegisterNeedHelp} />
+                    <Route path="/register/NeedHelp/organisation/:id" component={_RegisterNeedHelp} />
+                    <Route path="/register/WantToHelp/:id" component={_RegisterWantToHelp} /> 
                     
-                    <Route path="/register/WantToHelp(/:ID)" component={_RegisterWantToHelp} /> 
-                    <Route path="/register/:requestType(/:Type)(/:ID)" component={_RegisterNeedHelp} />
+
 
                     <Route path="/confirm" component={_RegistrationConfirmation } />    
                     <Route path="/aboutUs/ourStory" component={_WhoWeAre} />

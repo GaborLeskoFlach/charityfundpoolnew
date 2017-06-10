@@ -16,13 +16,11 @@ import GoogleAddress from '../../googleMaps/autoCompleteWithoutForm'
 import './styles.css'
 const Mask = require('react-masking').default
 
-import { IOrgNeedHelpWithListItem, RegistrationType, 
-            IRouteParams_Registrations, IAddressDetails } from '../../interfaces'
+import { IOrgNeedHelpWithListItem, RegistrationType, IAddressDetails } from '../../interfaces'
 
 interface IRegisterNeedHelpComponentProps{
-    params : IRouteParams_Registrations
+    params : any
 }
-
 interface IRegistrationProps{
     controller : RegisterNeedHelpController
 }
@@ -31,8 +29,6 @@ interface IRegistrationProps{
 export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelpComponentProps,{}>{
     controller : RegisterNeedHelpController
     requestURL_ID : string
-    requestURL_type : string
-    requestURL_requestType : string
 
     static contextTypes: React.ValidationMap<any> = {
         router: React.PropTypes.func.isRequired
@@ -44,23 +40,19 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
         this.controller = new RegisterNeedHelpController() 
 
         //check URL Query
-        if(this.props.params){
-            this.requestURL_ID = this.props.params.ID
-            this.requestURL_type = this.props.params.Type
-            this.requestURL_requestType = this.props.params.requestType
+        if(props.params){
+            this.requestURL_ID = props.params.params.id
         }
     }
 
-    getRegistrationType = () : RegistrationType => {
-        const urlQuery : string = this.props.params.requestType + '/' + this.props.params.Type
-        if(urlQuery){
-            switch(urlQuery){
-                case 'NeedHelp/Ind':
-                    return RegistrationType.NeedHelpInd
-                case 'NeedHelp/Org':
-                    return RegistrationType.NeedHelpOrg
-            }
+    getRegistrationType = () : RegistrationType => {                
+        switch(this.props.params.path){
+            case '/register/NeedHelp/individual/:id':
+                return RegistrationType.NeedHelpInd
+            case '/register/NeedHelp/organisation/:id':
+                return RegistrationType.NeedHelpOrg
         }
+        
         return RegistrationType.NeedHelpInd
     }
 
@@ -74,7 +66,7 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
                             this.controller.isLoading = false
                         })
                     }else if(!this.requestURL_ID && _firebaseAuth.currentUser){
-                        this.controller.getRegistrationByID(this.props.params.requestType,_firebaseAuth.currentUser.uid).then(response => {                
+                        this.controller.getRegistrationByID('NeedHelp',_firebaseAuth.currentUser.uid).then(response => {                
                             this.controller.isLoading = false
                         })
                     }
@@ -344,8 +336,8 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
                                     </ul>
                                     <fieldset className="tab-content" style={innerStyle}>
                                         <Switch>
-                                            <Route path="/register/NeedHelp/individual" exact render={() => <RegisterIndividualComponent controller={this.controller}/>}/>
-                                            <Route path="/register/NeedHelp/organisation" exact render={() => <RegisterOrganisationComponent controller={this.controller}/> }/>
+                                            <Route path="/register/NeedHelp/individual" render={() => <RegisterIndividualComponent controller={this.controller}/>}/>
+                                            <Route path="/register/NeedHelp/organisation" render={() => <RegisterOrganisationComponent controller={this.controller}/> }/>
                                         </Switch>
                                     </fieldset>
                                 </div>

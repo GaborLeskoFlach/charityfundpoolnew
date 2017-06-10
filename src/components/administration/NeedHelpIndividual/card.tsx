@@ -125,7 +125,7 @@ export class Card extends React.Component<ICard, {}>{
         )
     }
 
-    handleClick = () =>{
+    handleClick = () => {
         this.isShowingModal = true
     }
 

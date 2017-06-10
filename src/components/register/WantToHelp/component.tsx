@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { MultiSelectComponent } from '../../common/multiselect/component'
 import { RegisterWantToHelpController } from './controller'
 import { _firebaseAuth } from '../../firebaseAuth/component'
-import { IMultiSelect, DataFilter, IRouteParams_Registrations } from '../../interfaces'
+import { IMultiSelect, DataFilter } from '../../interfaces'
 import { convertData, convertFromObservable } from '../../../utils/utils'
 import Loader from 'react-loaders'
 
@@ -12,7 +12,7 @@ const Mask = require('react-masking').default
 import './styles.css'
 
 interface IRegisterWantToHelpComponent{
-    params : IRouteParams_Registrations
+    params : any
 }
 
 @observer
@@ -30,8 +30,8 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
         this.controller = new RegisterWantToHelpController()
 
         //check URL Query
-        if(this.props.params){
-            this.requestURL_ID = this.props.params.ID
+        if(props.params.params){
+            this.requestURL_ID = props.params.params.id
         }
     }
 

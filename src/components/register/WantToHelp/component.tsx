@@ -285,10 +285,11 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                             <div className="contact-form">
                                 <form ref="donationRegistrationForm" onSubmit={this.register.bind(this)}>
 
-                                    <p className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.validationError}</p>
+                                    <span className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.validationError}</span>
 
-                                    <div className={this.shouldMarkError('fullName') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('fullName') ? "form-group has-error has-feedback" : "form-group"}>
                                         <span className="mandatory-asterix"><label htmlFor="fullName">Name</label></span>
+                                        <span className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.fullName.fieldValidationError}</span>
                                         <input
                                             autoComplete="off" 
                                             className={this.shouldMarkError('fullName') ? "form-control error" : "form-control"}
@@ -301,10 +302,11 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                                             value={this.controller.registerWantToHelp.fullName}/>
                                             <span className={this.shouldMarkError('fullName') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>               
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.fullName.fieldValidationError}</p>                        
+                                    
 
-                                    <div className={this.shouldMarkError('email') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('email') ? "form-group has-error has-feedback" : "form-group"}>
                                         <span className="mandatory-asterix"><label htmlFor="email">Email address</label></span>
+                                        <span className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.email.fieldValidationError}</span>
                                         <input
                                             autoComplete="off"
                                             className={this.shouldMarkError('email') ? "form-control error" : "form-control"}
@@ -318,10 +320,11 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                                             value={this.controller.registerWantToHelp.email}/>
                                             <span className={this.shouldMarkError('email') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>                     
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.email.fieldValidationError}</p>  
+                                      
 
-                                    <div className={this.shouldMarkError('phoneNo') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('phoneNo') ? "form-group has-error has-feedback" : "form-group"}>
                                         <span className="mandatory-asterix"><label htmlFor="phoneNo">Phone No</label></span>
+                                        <span className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.phoneNo.fieldValidationError}</span>
                                         <Mask mask="(09)99 999 999" maskCharacter="_" onChange={this.handleChange}>
                                             <input
                                                 autoComplete="off"
@@ -336,10 +339,11 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                                         </Mask>
                                             <span className={this.shouldMarkError('phoneNo') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.phoneNo.fieldValidationError}</p>
+                                    
 
-                                    <div className={this.shouldMarkError('citySuburb') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('citySuburb') ? "form-group has-error has-feedback" : "form-group"}>
                                         <span className="mandatory-asterix"><label htmlFor="citySuburb">City</label></span>
+                                        <span className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.citySuburb.fieldValidationError}</span>
                                         <input
                                             autoComplete="off"
                                             className={this.shouldMarkError('citySuburb') ? "form-control error" : "form-control"}
@@ -352,10 +356,11 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                                             value={this.controller.registerWantToHelp.citySuburb}/>
                                             <span className={this.shouldMarkError('citySuburb') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.citySuburb.fieldValidationError}</p>
+                                    
 
-                                    <div className={this.shouldMarkError('postCode') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('postCode') ? "form-group has-error has-feedback" : "form-group"}>
                                         <span className="mandatory-asterix"><label htmlFor="postCode">Postcode</label></span>
+                                        <span className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.postCode.fieldValidationError}</span>
                                         <input
                                             autoComplete="off"
                                             className={this.shouldMarkError('postCode') ? "form-control error" : "form-control"}
@@ -369,10 +374,11 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                                             value={this.controller.registerWantToHelp.postCode} />
                                             <span className={this.shouldMarkError('postCode') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                                     </div>      
-                                    <p className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.postCode.fieldValidationError}</p>     
+                                         
 
-                                    <div className={this.shouldMarkError('limitations') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('limitations') ? "form-group has-error has-feedback" : "form-group"}>
                                         <span className="mandatory-asterix"><label htmlFor="limitations">Limitations</label></span>
+                                         <span className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.limitations.fieldValidationError}</span>
                                         <div>
                                             <select 
                                                 className={this.shouldMarkError('limitations') ? "form-control error" : "form-control"}
@@ -380,8 +386,7 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                                                 id="limitations" 
                                                 onChange={this.handleChange}
                                                 onBlur={this.handleBlur}
-                                                value={this.controller.registerWantToHelp.limitations} 
-                                            >
+                                                value={this.controller.registerWantToHelp.limitations} >
                                                 <option value="">Please select an option...</option>
                                                 <option value="lightDutyWork">Light duty work</option>
                                                 <option value="mediumDutyWork">Medium duty work</option>
@@ -389,7 +394,7 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
                                             </select>
                                         </div>     
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.registerWantToHelpFormState.limitations.fieldValidationError}</p>
+                                   
 
                                     <div className="form-group" onChange={this.handleChange}>
                                         <label htmlFor="hasTrade" ref="hasTrade">Do you have trade/trades: </label>

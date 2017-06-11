@@ -1,6 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
 import 'loaders.css/loaders.css'
+import 'react-toastify/dist/ReactToastify.min.css'
+
+//Toastr
+import { ToastContainer } from 'react-toastify';
 
 //React 
 import * as React from 'react'
@@ -97,48 +101,51 @@ const _Notifications = () => (
 )
 
 const CharityFundPoolApp = () => (
-    <Router>
-        <div>
-            <AppFrame children />
+    <div>
+        <Router>
+            <div>
+                <AppFrame children />
 
-                <Redirect from="/" to="/home/registrations" />
+                    <Redirect from="/" to="/home/registrations" />
 
-                <Switch>
-                    <Route exact path="/" component={_Home} />
-                    <Route path="/home" component={_Home} />
+                    <Switch>
+                        <Route exact path="/" component={_Home} />
+                        <Route path="/home" component={_Home} />
 
-                    <Route exact path="/register/NeedHelp/individual" component={_RegisterNeedHelp} />
-                    <Route exact path="/register/NeedHelp/organisation" component={_RegisterNeedHelp} />
-                    <Route exact path="/register/WantToHelp" component={_RegisterWantToHelp} /> 
+                        <Route exact path="/register/NeedHelp/individual" component={_RegisterNeedHelp} />
+                        <Route exact path="/register/NeedHelp/organisation" component={_RegisterNeedHelp} />
+                        <Route exact path="/register/WantToHelp" component={_RegisterWantToHelp} /> 
 
-                    <Route path="/register/NeedHelp/individual/:id" component={_RegisterNeedHelp} />
-                    <Route path="/register/NeedHelp/organisation/:id" component={_RegisterNeedHelp} />
-                    <Route path="/register/WantToHelp/:id" component={_RegisterWantToHelp} /> 
-                    
+                        <Route path="/register/NeedHelp/individual/:id" component={_RegisterNeedHelp} />
+                        <Route path="/register/NeedHelp/organisation/:id" component={_RegisterNeedHelp} />
+                        <Route path="/register/WantToHelp/:id" component={_RegisterWantToHelp} /> 
+                        
 
 
-                    <Route path="/confirm" component={_RegistrationConfirmation } />    
-                    <Route path="/aboutUs/ourStory" component={_WhoWeAre} />
+                        <Route path="/confirm" component={_RegistrationConfirmation } />    
+                        <Route path="/aboutUs/ourStory" component={_WhoWeAre} />
 
-                    <Route path="/donate" component={_DonateNow} />
-                    <Route path="/donate(/:causeId)" component={_DonateNow} />
+                        <Route path="/donate" component={_DonateNow} />
+                        <Route path="/donate(/:causeId)" component={_DonateNow} />
 
-                    <Route path="/viewNeeds" component={_NeedList}  />
-                    
-                    <Route exact path="/contactUs" component={_ContactUs} />
-                    
-                    <Route exact path="/login" component={_Login}/>
-                    <Route exact path="/login/passwordReset" component={_PasswordReset}/>
-                    <Route exact path="/login/signout" component={_SignOut}/>
-                    <Route exact path="/jobs" component={_Jobs} />
-                    
-                    <Route path="/administration" component={_Administration}/>
-                    <Route path="/notifications" component={_Notifications}/>>
+                        <Route path="/viewNeeds" component={_NeedList}  />
+                        
+                        <Route exact path="/contactUs" component={_ContactUs} />
+                        
+                        <Route exact path="/login" component={_Login}/>
+                        <Route exact path="/login/passwordReset" component={_PasswordReset}/>
+                        <Route exact path="/login/signout" component={_SignOut}/>
+                        <Route exact path="/jobs" component={_Jobs} />
+                        
+                        <Route path="/administration" component={_Administration}/>
+                        <Route path="/notifications" component={_Notifications}/>>
 
-                    <Route component={_NotFound}/>
-                </Switch>
-        </div>
-    </Router>
+                        <Route component={_NotFound}/>
+                    </Switch>
+            </div>
+        </Router>
+        <ToastContainer className='customToastStyle' position={'bottom-right'} hideProgressBar={true} />
+    </div>
 )
 
 

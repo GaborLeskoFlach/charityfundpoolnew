@@ -145,6 +145,7 @@ export class LoginComponent extends React.Component<{}, {}>{
 
                             <div className="input-group">
                                 <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
+                                <span className='validationErrorMsg'>{this.formState.email.fieldValidationError}</span>
                                 <input
                                     autoComplete="off"
                                     id="email" 
@@ -156,10 +157,11 @@ export class LoginComponent extends React.Component<{}, {}>{
                                     value={this.formState.email.fieldValue}
                                     className={this.shouldMarkError('email') ? "form-control error" : "form-control"} /> 
                             </div>
-                            <p className='validationErrorMsg'>{this.formState.email.fieldValidationError}</p>
+                            
 
                             <div className="input-group">
                                 <span className="input-group-addon"><i className="glyphicon glyphicon-lock color-blue"></i></span>
+                                <span className='validationErrorMsg'>{this.formState.password.fieldValidationError}</span>
                                 <input
                                     autoComplete="off"
                                     onKeyUp={this.handleKeyUp}
@@ -172,7 +174,7 @@ export class LoginComponent extends React.Component<{}, {}>{
                                     value={this.formState.password.fieldValue}
                                     className={this.shouldMarkError('password') ? "form-control error" : "form-control"} />                                                     
                             </div>
-                            <p className='validationErrorMsg'>{this.formState.password.fieldValidationError}</p>
+                            
                             
                             <p className="text-right"><Link to='/login/passwordReset'>Forgot your password?</Link></p>
                             <button default className="btn btn-default btn-block" onClick={this.signInUser}>LOG IN</button>

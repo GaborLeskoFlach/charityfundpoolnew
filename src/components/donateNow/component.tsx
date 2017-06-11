@@ -239,8 +239,9 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                         </div>
                                     </div>
                                 
-                                    <div className={this.shouldMarkError('fullName') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('fullName') ? "form-group has-error has-feedback" : "form-group"}>
                                         <label htmlFor="fullName">Name (*)</label>
+                                        <span className='validationErrorMsg'>{this.controller.donationFormState.fullName.fieldValidationError}</span>
                                         <input 
                                             className={this.shouldMarkError('fullName') ? "form-control error" : "form-control"}
                                             id="fullName" 
@@ -252,10 +253,11 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                             value={this.controller.donationRegistration.fullName}/>
                                             <span className={this.shouldMarkError('fullName') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>               
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.donationFormState.fullName.fieldValidationError}</p>  
+                                      
 
-                                    <div className={this.shouldMarkError('email') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('email') ? "form-group has-error has-feedback" : "form-group"}>
                                         <label htmlFor="email">Email address (*)</label>
+                                        <span className='validationErrorMsg'>{this.controller.donationFormState.email.fieldValidationError}</span>
                                         <input 
                                             className={this.shouldMarkError('email') ? "form-control error" : "form-control"}
                                             id="email" 
@@ -267,10 +269,11 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                             value={this.controller.donationRegistration.email}/>
                                             <span className={this.shouldMarkError('email') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>                     
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.donationFormState.email.fieldValidationError}</p> 
+                                     
 
-                                    <div className={this.shouldMarkError('phoneNo') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('phoneNo') ? "form-group has-error has-feedback" : "form-group"}>
                                         <label htmlFor="phoneNo">Phone No (*)</label>
+                                        <span className='validationErrorMsg'>{this.controller.donationFormState.phoneNo.fieldValidationError}</span>
                                         <Mask mask="+61 9 9999 9999" maskCharacter="_" onChange={this.handleChange}>
                                             <input 
                                                 className={this.shouldMarkError('phoneNo') ? "form-control error" : "form-control"}
@@ -284,10 +287,11 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                         </Mask>
                                             <span className={this.shouldMarkError('phoneNo') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                                     </div>
-                                    <p className='validationErrorMsg'>{this.controller.donationFormState.phoneNo.fieldValidationError}</p>
+                                    
                                 
-                                    <div className={this.shouldMarkError('postCode') ? "form-group has-error has-feedback" : ""}>
+                                    <div className={this.shouldMarkError('postCode') ? "form-group has-error has-feedback" : "form-group"}>
                                         <label htmlFor="postCode">Postcode (*)</label>
+                                        <span className='validationErrorMsg'>{this.controller.donationFormState.postCode.fieldValidationError}</span>
                                         <input 
                                             className={this.shouldMarkError('postCode') ? "form-control error" : "form-control"}
                                             id="postCode" 
@@ -298,7 +302,7 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                             value={this.controller.donationRegistration.postCode} />
                                             <span className={this.shouldMarkError('postCode') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                                     </div>      
-                                    <p className='validationErrorMsg'>{this.controller.donationFormState.postCode.fieldValidationError}</p>  
+                                      
 
 
 

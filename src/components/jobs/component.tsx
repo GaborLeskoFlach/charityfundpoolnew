@@ -95,7 +95,7 @@ export class Jobs extends React.Component<{},{}> {
                                 <div className="subscribe wow fadeInUp animated" style={{ visibility: 'visible', animationName: 'fadeInUp'}}>
                                     <form className="form-inline" onSubmit={this.searchByPostCode}>
                                         
-                                        <div className={this.shouldMarkError('postcode') ? "form-group has-error has-feedback" : ""}>
+                                        <div className={this.shouldMarkError('postcode') ? "form-group has-error has-feedback" : "form-group"}>
                                             <label className="sr-only" htmlFor="searchByPostCode">Post code</label>
                                             <input
                                                 autoComplete="off" 
@@ -120,7 +120,7 @@ export class Jobs extends React.Component<{},{}> {
                                             <JobSearchFilter />
                                         </div>
                                         <button type="submit" className="btn btn-primary submit">Search</button>
-                                        <p className='validationErrorMsg'>{this.controller.registerIndividualFormState.postCode.fieldValidationError}</p>
+                                        
                                     </form>
                                 </div>
                             </div>

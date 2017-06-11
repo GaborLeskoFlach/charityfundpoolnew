@@ -223,3 +223,10 @@ export enum NotificationType {
 export interface IJobActions {
     (id : string, toStatus : NotificationStatus) : void
 }
+
+export interface IContactUs{
+    name : string
+    email : string
+    subject : string
+    message : string
+}

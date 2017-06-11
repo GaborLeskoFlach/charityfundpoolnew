@@ -158,16 +158,3 @@
   color: #F39C12;
 }
 
-/*Displaying Validation Errors*/
-input.error {
-  border-color: red;
-}
-
-select.error {
-  border-color: red;
-}
-
-p.validationErrorMsg {
-  color : red;
-  text-align: left;
-}

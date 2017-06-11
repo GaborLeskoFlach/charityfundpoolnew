@@ -184,8 +184,9 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                     <div className="panel panel-default">
                         <div className="panel-heading">
 
-                            <div className={this.shouldMarkError('title') ? "form-group has-error has-feedback" : ""}>
+                            <div className={this.shouldMarkError('title') ? "form-group has-error has-feedback" : "form-group"}>
                                 <label htmlFor="websiteLink">Title</label>
+                                <span className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.title.fieldValidationError}</span>
                                 <input 
                                     className={this.shouldMarkError('title') ? "form-control error" : "form-control"}
                                     id="title" 
@@ -196,10 +197,11 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     value={this.needHelpWithListItem.title}/>
                                     <span className={this.shouldMarkError('title') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                             </div>
-                            <p className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.title.fieldValidationError}</p>
+                            
 
-                            <div className={this.shouldMarkError('description') ? "form-group has-error has-feedback" : ""}>
+                            <div className={this.shouldMarkError('description') ? "form-group has-error has-feedback" : "form-group"}>
                                 <label htmlFor="websiteLink">Description</label>
+                                <span className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.description.fieldValidationError}</span>
                                 <textarea 
                                     className={this.shouldMarkError('description') ? "form-control error" : "form-control"}
                                     rows={5} 
@@ -209,10 +211,11 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     value={this.needHelpWithListItem.description}></textarea>
                                 <span className={this.shouldMarkError('description') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                             </div>
-                            <p className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.description.fieldValidationError}</p>
+                            
 
-                            <div className={this.shouldMarkError('estimatedValue') ? "form-group has-error has-feedback" : ""}>
+                            <div className={this.shouldMarkError('estimatedValue') ? "form-group has-error has-feedback" : "form-group"}>
                                 <label htmlFor="websiteLink">Estimated value</label>
+                                <span className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.estimatedValue.fieldValidationError}</span>
                                 <input 
                                     className={this.shouldMarkError('estimatedValue') ? "form-control error" : "form-control"}
                                     id="estimatedValue" 
@@ -224,10 +227,11 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     value={this.needHelpWithListItem.estimatedValue}/>
                                     <span className={this.shouldMarkError('estimatedValue') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                             </div>
-                            <p className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.estimatedValue.fieldValidationError}</p>
+                            
 
-                            <div className={this.shouldMarkError('bestPrice') ? "form-group has-error has-feedback" : ""}>
+                            <div className={this.shouldMarkError('bestPrice') ? "form-group has-error has-feedback" : "form-group"}>
                                 <label htmlFor="bestPrice">Best price</label>
+                                <span className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.bestPrice.fieldValidationError}</span>
                                 <input 
                                     className={this.shouldMarkError('bestPrice') ? "form-control error" : "form-control"}
                                     id="bestPrice" 
@@ -239,7 +243,7 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     value={this.needHelpWithListItem.bestPrice}/>
                                     <span className={this.shouldMarkError('bestPrice') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
                             </div>
-                            <p className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.bestPrice.fieldValidationError}</p>
+                            
 
 
                             <button className="btn btn-default" onClick={this.addNewListItem}>{this.btnCaption}</button>

@@ -21,8 +21,8 @@ export class ContactUsController {
     @observable email : string
     @observable subject : string
     @observable message : string
-    @observable isLoading : boolean;
-    @observable contactUsFormState : IContactUsFormFields;
+    @observable isLoading : boolean
+    @observable contactUsFormState : IContactUsFormFields
 
     @action('Reset Form')
     resetForm = action(() => {
@@ -60,5 +60,15 @@ export class ContactUsController {
             })            
         });
     })
+
+    @action("get ContactUs requests from DB")
+    getContactUsRequests = action(() => {
+        return new Promise<Array<IContactUs>>((resolve) => {
+            const dbRef : string = 'contactus'
+            _firebaseApp.database().ref(dbRef).on('value', (snapshot) => {
+                resolve(snapshot.val())
+            }); 
+        });
+    });
 
 }

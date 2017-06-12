@@ -224,9 +224,10 @@ export interface IJobActions {
     (id : string, toStatus : NotificationStatus) : void
 }
 
-export interface IContactUs{
+export interface IContactUs extends IConvertDataConstraint{
     name : string
     email : string
     subject : string
     message : string
+    date : string
 }

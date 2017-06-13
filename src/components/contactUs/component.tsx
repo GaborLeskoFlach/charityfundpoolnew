@@ -148,13 +148,14 @@ export class ContactUsComponent extends React.Component<{},{}>{
 
                 const contactUs : IContactUs = {
                     active : true,
+                    outstanding : true,
                     name : this.controller.name,
                     email : this.controller.email,
                     subject : this.controller.subject,
                     message : this.controller.message,
-                    date : new Date().toString()
+                    date : new Date().toDateString()
                 }
-
+                
                 this.controller.saveContactUsRequest(contactUs).then((response) => {            
                     this.controller.resetForm()
                     this.controller.isLoading = false
@@ -176,7 +177,7 @@ export class ContactUsComponent extends React.Component<{},{}>{
                         </div>
                         <div className="row">
                             <div className="col-sm-12">
-                                <form>
+                                <form onSubmit={this.handleClick}>
                                     <div className="row">
                                         <div className="col-md-6">
 
@@ -252,8 +253,7 @@ export class ContactUsComponent extends React.Component<{},{}>{
                                         </div>
 
                                         <div className="col-md-12">
-                                            <button type="submit" onClick={this.handleClick} className="btn btn-primary submit pull-right" id="btnContactUs">
-                                                Send Message</button>
+                                            <button type="submit" className="btn btn-primary submit pull-right" id="btnContactUs">Send Message</button>
                                         </div>
                                     </div>
                                 </form>

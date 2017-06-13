@@ -230,4 +230,5 @@ export interface IContactUs extends IConvertDataConstraint{
     subject : string
     message : string
     date : string
+    outstanding : boolean
 }

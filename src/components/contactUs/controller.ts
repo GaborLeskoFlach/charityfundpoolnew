@@ -58,7 +58,7 @@ export class ContactUsController {
             _firebaseApp.database().ref(dbRef).push(contactUs).then(result => {
                 resolve(result)
             })            
-        });
+        })
     })
 
     @action("get ContactUs requests from DB")
@@ -67,8 +67,21 @@ export class ContactUsController {
             const dbRef : string = 'contactus'
             _firebaseApp.database().ref(dbRef).on('value', (snapshot) => {
                 resolve(snapshot.val())
-            }); 
-        });
-    });
+            })
+        })
+    })
+
+    @action("Physically deletes a Registration from DB")
+    deleteContactUsRequest = (key : string) : Promise<any> => {
+        return new Promise<any>((resolve,reject) => {      
+            const dbRef = 'contactus/' + key
+             _firebaseApp.database().ref(dbRef).remove().then(() => {
+                resolve()
+             }).catch(error => {
+                console.log('Remove failed: {0}', error.message)
+                reject()
+             })
+        });       
+    };    
 
 }

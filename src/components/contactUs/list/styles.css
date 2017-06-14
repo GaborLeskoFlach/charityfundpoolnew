@@ -142,3 +142,8 @@ body {
 span.pull-center{
     padding-left:15px;
 }
+
+/*create Email Modal*/
+div.createEmailModal{
+	width:350px;
+}

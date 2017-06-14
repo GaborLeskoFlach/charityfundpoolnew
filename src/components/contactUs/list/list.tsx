@@ -5,7 +5,7 @@ import Loader from 'react-loaders'
 import { toast } from 'react-toastify'
 import { IContactUs, DataFilter } from '../../interfaces'
 import { ContactUsController } from '../controller'
-import { convertData } from '../../../utils/utils'
+import { convertFromObservable } from '../../../utils/utils'
 
 let ModalContainer = require('react-modal-dialog').ModalContainer
 let ModalDialog = require('react-modal-dialog').ModalDialog
@@ -49,16 +49,20 @@ export class ContactRequestsComponent extends React.Component<IContactRequests,{
         this.typeFilter = ContactRequestTypeFilter.enquiry
     }
 
-    componentWillMount(){
+    fetchData = () => {
         this.isLoading = true
         this.props.controller.getContactUsRequests().then((response)=>{
-            this.contactUsRequests = convertData<IContactUs>(response, DataFilter.ActiveOnly)
+            this.contactUsRequests = convertFromObservable<IContactUs>(response)
             if(this.contactUsRequests){
                 this.filteredContactUsRequests = this.contactUsRequests.
                                             filter(x => x.outstanding === (this.mainFilter === ContactRequestFilter.Outstanding))
             }
             this.isLoading = false
-        })
+        })        
+    }
+
+    componentWillMount(){
+       this.fetchData()
     }
 
     getSubjectByType = (type : string) => {
@@ -74,11 +78,17 @@ export class ContactRequestsComponent extends React.Component<IContactRequests,{
 
     handleCloseModal = () => {
         this.isShowingModal = false
+        this.fetchData()
     }
 
     replyToContactRequest = (e,contactRequest : IContactUs) => {
         this.selectedContactRequest = contactRequest
         this.isShowingModal = true
+    }
+
+    showReply = (e, contactRequest : IContactUs) => {
+        this.selectedContactRequest = contactRequest
+        this.isShowingModal = true        
     }
 
     deleteContactRequest = (e, id : string) => {
@@ -119,7 +129,12 @@ export class ContactRequestsComponent extends React.Component<IContactRequests,{
                             </div>
                         </td>
                         <td>
-                            <button type="button" className="btn btn-success btn-filter" onClick={(e) => this.replyToContactRequest(e,item)}>Reply</button>
+                            {
+                                !item.active && !item.outstanding ? 
+                                    <button type="button" className="btn btn-success btn-filter" onClick={(e) => this.showReply(e,item)}>Show reply</button>
+                                :
+                                    <button type="button" className="btn btn-success btn-filter" onClick={(e) => this.replyToContactRequest(e,item)}>Reply</button>
+                            }                            
                         </td>                           
                         <td>
                             <button type="button" className="btn btn-danger btn-filter" onClick={(e) => this.deleteContactRequest(e,item.ID)}>Delete</button>
@@ -132,7 +147,14 @@ export class ContactRequestsComponent extends React.Component<IContactRequests,{
 
     filterItems = (filter : ContactRequestFilter) => {
         this.mainFilter = filter
-        this.filteredContactUsRequests = this.contactUsRequests.filter(x => x.outstanding === (filter === ContactRequestFilter.Outstanding))
+
+        if(filter === ContactRequestFilter.Outstanding){
+            this.filteredContactUsRequests = this.contactUsRequests.filter(x => x.outstanding === true && x.active === true)
+        }else{
+            this.filteredContactUsRequests = this.contactUsRequests.filter(x => x.outstanding === false && x.active === false)
+        }
+
+        
     }
 
     filterItemsByType = (filter : ContactRequestTypeFilter) => {
@@ -183,23 +205,25 @@ export class ContactRequestsComponent extends React.Component<IContactRequests,{
 
                                                 </tbody>
                                             </table>
-                                        </div>
-
-                                        {
-                                            this.isShowingModal && this.selectedContactRequest &&
-                                            <ModalContainer onClose={this.handleCloseModal}>
-                                                <ModalDialog onClose={this.handleCloseModal}>
-                                                    <CreateEmailResponse contactRequest={this.selectedContactRequest} />
-                                                </ModalDialog>
-                                            </ModalContainer>                            
-                                        }                                               
+                                        </div>                                            
                                     </div>
-                                </div>                               
+                                </div>                              
                             </div>
                         </section>                        
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-6">
+                            {
+                                this.isShowingModal && this.selectedContactRequest &&
+                                <ModalContainer onClose={this.handleCloseModal}>
+                                    <ModalDialog onClose={this.handleCloseModal}>
+                                        <CreateEmailResponse contactRequest={this.selectedContactRequest} closeModal={this.handleCloseModal} controller={this.props.controller}/>
+                                    </ModalDialog>
+                                </ModalContainer>                            
+                            }                                     
+                        </div>
                     </div>                                     
-                </div>              
-
+                </div>                                 
             )
         }
     }

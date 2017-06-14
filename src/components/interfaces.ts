@@ -232,3 +232,9 @@ export interface IContactUs extends IConvertDataConstraint{
     date : string
     outstanding : boolean
 }
+
+export interface IContactUsReply {
+    ID : string
+    message : string
+    date : string
+}

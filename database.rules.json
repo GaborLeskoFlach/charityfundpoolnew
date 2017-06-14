@@ -15,6 +15,11 @@
       ".read" : true,
       ".write": "auth != null",
       ".indexOn": ["uid","active"]
+    },
+		"contactus" : {
+      ".read" : "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["uid","active"]
     },      
     "users" : {
       ".read" : true,

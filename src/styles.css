@@ -46,7 +46,7 @@
 =======Typography=========
 ==========================*/
 
-div#body > div > div.container{
+div#body > div > div > div.container{
 	position:relative;
 	top:80px;
 	border-radius: 5px;

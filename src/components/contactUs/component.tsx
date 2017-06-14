@@ -170,99 +170,98 @@ export class ContactUsComponent extends React.Component<{},{}>{
             return <Loader type="ball-pulse" active />
         }else{
             return(
-                <div>
-                    <div className="container">
-                        <div className="section-title">
-                            <h1>Contact Us</h1>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-12">
-                                <form onSubmit={this.handleClick}>
-                                    <div className="row">
-                                        <div className="col-md-6">
+                <div className="container">
+                    <div className="section-title">
+                        <h1>Contact Us</h1>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <form onSubmit={this.handleClick}>
+                                <div className="row">
+                                    <div className="col-md-6">
 
-                                            <div className={this.shouldMarkError('name') ? "form-group has-error has-feedback" : "form-group"}>
-                                                <span className="mandatory-asterix">
-                                                    <label htmlFor="fullName">Your Name</label>
-                                                </span>
-                                                <span className='validationErrorMsg'>{this.controller.contactUsFormState.name.fieldValidationError}</span>
+                                        <div className={this.shouldMarkError('name') ? "form-group has-error has-feedback" : "form-group"}>
+                                            <span className="mandatory-asterix">
+                                                <label htmlFor="fullName">Your Name</label>
+                                            </span>
+                                            <span className='validationErrorMsg'>{this.controller.contactUsFormState.name.fieldValidationError}</span>
+                                            <input
+                                                autoComplete="off"
+                                                className={this.shouldMarkError('name') ? "form-control error" : "form-control"}                        
+                                                id="name" 
+                                                type="text" 
+                                                placeholder="Full Name"
+                                                onChange={this.handleChange}
+                                                onBlur={this.handleBlur}
+                                                value={this.controller.name}/>
+
+                                        </div>                                        
+                                                                                
+                                        <div className={this.shouldMarkError('email') ? "form-group has-error has-feedback" : "form-group"}>
+                                            <span className="mandatory-asterix">
+                                                <label htmlFor="fullName">Email</label>                                               
+                                            </span>
+                                            <span className='validationErrorMsg'>{this.controller.contactUsFormState.email.fieldValidationError}</span>
+                                            <div className="input-group">
+                                                <span className="input-group-addon"><span className="glyphicon glyphicon-envelope"></span>
+                                                </span>                                            
                                                 <input
                                                     autoComplete="off"
-                                                    className={this.shouldMarkError('name') ? "form-control error" : "form-control"}                        
-                                                    id="name" 
+                                                    className={this.shouldMarkError('email') ? "form-control error" : "form-control"}                        
+                                                    id="email" 
                                                     type="text" 
-                                                    placeholder="Full Name"
+                                                    placeholder="Email"
                                                     onChange={this.handleChange}
                                                     onBlur={this.handleBlur}
-                                                    value={this.controller.name}/>
-
-                                            </div>                                        
-                                                                                    
-                                            <div className={this.shouldMarkError('email') ? "form-group has-error has-feedback" : "form-group"}>
-                                                <span className="mandatory-asterix">
-                                                    <label htmlFor="fullName">Email</label>                                               
-                                                </span>
-                                                <span className='validationErrorMsg'>{this.controller.contactUsFormState.email.fieldValidationError}</span>
-                                                <div className="input-group">
-                                                    <span className="input-group-addon"><span className="glyphicon glyphicon-envelope"></span>
-                                                    </span>                                            
-                                                    <input
-                                                        autoComplete="off"
-                                                        className={this.shouldMarkError('email') ? "form-control error" : "form-control"}                        
-                                                        id="email" 
-                                                        type="text" 
-                                                        placeholder="Email"
-                                                        onChange={this.handleChange}
-                                                        onBlur={this.handleBlur}
-                                                        value={this.controller.email}/>
-                                                </div>
+                                                    value={this.controller.email}/>
                                             </div>
-                                                                                
-                                            <div className={this.shouldMarkError('subject') ? "form-group has-error has-feedback" : "form-group"}>
-                                                <span className="mandatory-asterix"><label htmlFor="country">Subject</label></span>
-                                                <span className='validationErrorMsg'>{this.controller.contactUsFormState.subject.fieldValidationError}</span>
-                                                <div>
-                                                    <select className={this.shouldMarkError('subject') ? "form-control error" : "form-control"} id="subject" 
-                                                        onChange={this.handleChange} 
-                                                        onBlur={this.handleBlur} 
-                                                        value={this.controller.subject} >
-                                                        <option value="">Please select an option...</option>
-                                                        <option value="enquiry">General Enquiry</option>
-                                                        <option value="suggestions">Suggestions</option>
-                                                        <option value="support">Support</option>
-                                                    </select>
-                                                </div>
-                                            </div>                                        
-
                                         </div>
-
-                                        <div className="col-md-6">
-                                            <div className={this.shouldMarkError('message') ? "form-group has-error has-feedback" : "form-group"}>
-                                                <span className="mandatory-asterix"><label htmlFor="message">Message</label></span>
-                                                <span className='validationErrorMsg'>{this.controller.contactUsFormState.message.fieldValidationError}</span>
-                                                <textarea
-                                                    autoComplete="off" 
-                                                    className={this.shouldMarkError('message') ? "form-control error" : "form-control"}
-                                                    rows={5} 
-                                                    id="message"
+                                                                            
+                                        <div className={this.shouldMarkError('subject') ? "form-group has-error has-feedback" : "form-group"}>
+                                            <span className="mandatory-asterix"><label htmlFor="country">Subject</label></span>
+                                            <span className='validationErrorMsg'>{this.controller.contactUsFormState.subject.fieldValidationError}</span>
+                                            <div>
+                                                <select className={this.shouldMarkError('subject') ? "form-control error" : "form-control"} id="subject" 
                                                     onChange={this.handleChange} 
-                                                    onBlur={this.handleBlur}
-                                                    value={this.controller.message}></textarea>
+                                                    onBlur={this.handleBlur} 
+                                                    value={this.controller.subject} >
+                                                    <option value="">Please select an option...</option>
+                                                    <option value="enquiry">General Enquiry</option>
+                                                    <option value="suggestions">Suggestions</option>
+                                                    <option value="support">Support</option>
+                                                </select>
                                             </div>
-                                            
-                                        </div>
+                                        </div>                                        
 
-                                        <div className="col-md-12">
-                                            <button type="submit" className="btn btn-primary submit pull-right" id="btnContactUs">Send Message</button>
-                                        </div>
                                     </div>
-                                </form>
-                            </div>
+
+                                    <div className="col-md-6">
+                                        <div className={this.shouldMarkError('message') ? "form-group has-error has-feedback" : "form-group"}>
+                                            <span className="mandatory-asterix"><label htmlFor="message">Message</label></span>
+                                            <span className='validationErrorMsg'>{this.controller.contactUsFormState.message.fieldValidationError}</span>
+                                            <textarea
+                                                autoComplete="off" 
+                                                className={this.shouldMarkError('message') ? "form-control error" : "form-control"}
+                                                rows={5} 
+                                                id="message"
+                                                onChange={this.handleChange} 
+                                                onBlur={this.handleBlur}
+                                                value={this.controller.message}></textarea>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div className="col-md-12">
+                                        <button type="submit" className="btn btn-primary submit pull-right" id="btnContactUs">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
-                    <ContactRequestsComponent controller={this.controller}/>
-                </div>
+                    <div className="row">
+                        {/*<ContactRequestsComponent controller={this.controller}/>*/}
+                    </div>
+                </div>                    
             )
         }
     }

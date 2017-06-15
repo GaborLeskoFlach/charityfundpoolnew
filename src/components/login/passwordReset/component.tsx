@@ -148,6 +148,7 @@ const PasswordResetForm = (props : IPasswordResetForm) => {
                 <div className="input-group">
                     <span className="input-group-addon"><i className="glyphicon glyphicon-lock color-blue"></i></span>
                     <input 
+                        maxLength={30}
                         id="email" 
                         name="email" 
                         placeholder="Email"
@@ -158,9 +159,9 @@ const PasswordResetForm = (props : IPasswordResetForm) => {
                         value={props.email}
                         className={props.shouldMarkError() ? "form-control error" : "form-control"} />                                                        
                 </div>
-                <p className='validationErrorMsg'>{props.emailValidationError}</p>
+                <span className='validationErrorMsg'>{props.emailValidationError}</span>
                 <br/>
-                <button className="btn btn-default btn-block" onClick={props.resetPassword} >RESET</button>
+                <button className="btn btn-primary btn-block" onClick={props.resetPassword} >RESET</button>
                 <hr/>
             
             </div>

@@ -207,6 +207,13 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
         //TODO here we have access to whatever user selected in DonationPayment control
     }
 
+    handleKeyPress = (event) => {
+        const re = /[0-9A-F:]+/g
+        if (!re.test(event.key)) {
+            event.preventDefault()
+        }        
+    }    
+
     render() {
 
         const { causeId } : any = this.props.params  
@@ -240,9 +247,10 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                     </div>
                                 
                                     <div className={this.shouldMarkError('fullName') ? "form-group has-error has-feedback" : "form-group"}>
-                                        <label htmlFor="fullName">Name (*)</label>
+                                        <span className="mandatory-asterix"><label>Name</label></span>
                                         <span className='validationErrorMsg'>{this.controller.donationFormState.fullName.fieldValidationError}</span>
                                         <input 
+                                            maxLength={30}
                                             className={this.shouldMarkError('fullName') ? "form-control error" : "form-control"}
                                             id="fullName" 
                                             type="text" 
@@ -251,14 +259,14 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                             onChange={this.handleChange}
                                             onBlur={this.handleBlur}
                                             value={this.controller.donationRegistration.fullName}/>
-                                            <span className={this.shouldMarkError('fullName') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>               
+                                                           
                                     </div>
                                       
-
                                     <div className={this.shouldMarkError('email') ? "form-group has-error has-feedback" : "form-group"}>
-                                        <label htmlFor="email">Email address (*)</label>
+                                        <span className="mandatory-asterix"><label htmlFor="email">Email address</label></span>
                                         <span className='validationErrorMsg'>{this.controller.donationFormState.email.fieldValidationError}</span>
                                         <input 
+                                            maxLength={30}
                                             className={this.shouldMarkError('email') ? "form-control error" : "form-control"}
                                             id="email" 
                                             type="text" 
@@ -266,13 +274,11 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                             placeholder="Email"
                                             onChange={this.handleChange}
                                             onBlur={this.handleBlur}
-                                            value={this.controller.donationRegistration.email}/>
-                                            <span className={this.shouldMarkError('email') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>                     
+                                            value={this.controller.donationRegistration.email}/>                                        
                                     </div>
                                      
-
                                     <div className={this.shouldMarkError('phoneNo') ? "form-group has-error has-feedback" : "form-group"}>
-                                        <label htmlFor="phoneNo">Phone No (*)</label>
+                                        <span className="mandatory-asterix"><label>Phone No</label></span>
                                         <span className='validationErrorMsg'>{this.controller.donationFormState.phoneNo.fieldValidationError}</span>
                                         <Mask mask="+61 9 9999 9999" maskCharacter="_" onChange={this.handleChange}>
                                             <input 
@@ -284,28 +290,24 @@ export class DonateNowComponent extends React.Component<IDonateNowComponentProps
                                                 onChange={this.handleChange}
                                                 onBlur={this.handleBlur}
                                                 value={this.controller.donationRegistration.phoneNo}/>
-                                        </Mask>
-                                            <span className={this.shouldMarkError('phoneNo') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
+                                        </Mask>                                            
                                     </div>
-                                    
-                                
+                                                                    
                                     <div className={this.shouldMarkError('postCode') ? "form-group has-error has-feedback" : "form-group"}>
-                                        <label htmlFor="postCode">Postcode (*)</label>
+                                        <span className="mandatory-asterix"><label>Post Code</label></span>
                                         <span className='validationErrorMsg'>{this.controller.donationFormState.postCode.fieldValidationError}</span>
                                         <input 
+                                            maxLength={4}                                            
                                             className={this.shouldMarkError('postCode') ? "form-control error" : "form-control"}
                                             id="postCode" 
-                                            type="text" 
-                                            placeholder="Postcode" 
+                                            type="text"
+                                            placeholder="Postcode"
+                                            onKeyPress={(e) => this.handleKeyPress(e)}
                                             onChange={this.handleChange}
                                             onBlur={this.handleBlur}
-                                            value={this.controller.donationRegistration.postCode} />
-                                            <span className={this.shouldMarkError('postCode') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
+                                            value={this.controller.donationRegistration.postCode} />                            
                                     </div>      
                                       
-
-
-
                                     <DonationPaymentConfiguration paymentTabConfigState={this.paymentTabConfigChange} />
 
                                     <button type="submit" className="btn btn-primary submit">Donate</button>

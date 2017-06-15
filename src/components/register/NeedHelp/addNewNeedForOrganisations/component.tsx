@@ -194,8 +194,7 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     placeholder="Title" 
                                     onChange={this.handleChange}
                                     onBlur={this.handleBlur}
-                                    value={this.needHelpWithListItem.title}/>
-                                    <span className={this.shouldMarkError('title') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
+                                    value={this.needHelpWithListItem.title}/>                                    
                             </div>
                             
 
@@ -208,8 +207,7 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     id="description"
                                     onChange={this.handleChange} 
                                     onBlur={this.handleBlur}
-                                    value={this.needHelpWithListItem.description}></textarea>
-                                <span className={this.shouldMarkError('description') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
+                                    value={this.needHelpWithListItem.description}></textarea>                                
                             </div>
                             
 
@@ -224,8 +222,7 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     onKeyPress={(e) => this.handleKeyPress(e)}
                                     onChange={this.handleChange}
                                     onBlur={this.handleBlur}
-                                    value={this.needHelpWithListItem.estimatedValue}/>
-                                    <span className={this.shouldMarkError('estimatedValue') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
+                                    value={this.needHelpWithListItem.estimatedValue}/>                                    
                             </div>
                             
 
@@ -240,8 +237,7 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     onKeyPress={(e) => this.handleKeyPress(e)}
                                     onChange={this.handleChange}
                                     onBlur={this.handleBlur}
-                                    value={this.needHelpWithListItem.bestPrice}/>
-                                    <span className={this.shouldMarkError('bestPrice') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
+                                    value={this.needHelpWithListItem.bestPrice}/>                                    
                             </div>
                             
 

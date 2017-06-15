@@ -186,6 +186,7 @@ export class ContactUsComponent extends React.Component<{},{}>{
                                             </span>
                                             <span className='validationErrorMsg'>{this.controller.contactUsFormState.name.fieldValidationError}</span>
                                             <input
+                                                maxLength={30}
                                                 autoComplete="off"
                                                 className={this.shouldMarkError('name') ? "form-control error" : "form-control"}                        
                                                 id="name" 
@@ -206,6 +207,7 @@ export class ContactUsComponent extends React.Component<{},{}>{
                                                 <span className="input-group-addon"><span className="glyphicon glyphicon-envelope"></span>
                                                 </span>                                            
                                                 <input
+                                                    maxLength={30}
                                                     autoComplete="off"
                                                     className={this.shouldMarkError('email') ? "form-control error" : "form-control"}                        
                                                     id="email" 
@@ -240,6 +242,7 @@ export class ContactUsComponent extends React.Component<{},{}>{
                                             <span className="mandatory-asterix"><label htmlFor="message">Message</label></span>
                                             <span className='validationErrorMsg'>{this.controller.contactUsFormState.message.fieldValidationError}</span>
                                             <textarea
+                                                maxLength={300}
                                                 autoComplete="off" 
                                                 className={this.shouldMarkError('message') ? "form-control error" : "form-control"}
                                                 rows={5} 

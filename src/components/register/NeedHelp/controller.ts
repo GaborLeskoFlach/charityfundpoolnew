@@ -244,6 +244,7 @@ export class RegisterNeedHelpController {
             photoUrl : '',
             title : ''
         }
+
     }
 
     @action("Add new NeedHelpWith List Item to User")
@@ -479,7 +480,7 @@ export class RegisterNeedHelpController {
                 reject('An error occured when trying to update your registration')
             })
         })
-    }    
+    }
 
     @action("get a registration by type and id")
     getRegistrationByTypeAndID = (registrationType : RegistrationType, key : string) => {
@@ -521,19 +522,19 @@ export class RegisterNeedHelpController {
                     this.organisationRegistration = organisations.filter(x => x.uid === key)[0];
                 }
 
-                if(this.individualRegistration){
-                    this.submitBtnCaption = 'Save';
+                if(this.individualRegistration){                  
                     this.registrationNeedHelpInd = this.individualRegistration;
-                    this.isExistingRegistration = true
                     this.setRegistrationType("Individual")
                 }
 
-                if(this.organisationRegistration){
-                    this.submitBtnCaption = 'Save';
-                    this.registrationNeedHelpOrg = this.organisationRegistration;
-                    this.isExistingRegistration = true
+                if(this.organisationRegistration){                   
+                    this.registrationNeedHelpOrg = this.organisationRegistration;                    
                     this.setRegistrationType("Org")
                 }
+
+                this.submitBtnCaption = 'Save';
+                this.isExistingRegistration = true
+
                 resolve();
             });
         });   

@@ -133,6 +133,11 @@ body {
 	background-color:#ffe600;
 }
 
+.donate-tab .tab-list li.disabled a, 
+.donate-tab .tab-list li.disabled a:hover {
+	display: none;
+}
+
 .donate-tab .tab-content {
 	margin-bottom:40px;
 }

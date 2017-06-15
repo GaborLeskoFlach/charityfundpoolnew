@@ -106,8 +106,7 @@ export class Jobs extends React.Component<{},{}> {
                                                 onChange={this.handleChange}
                                                 onBlur={this.handleBlur}
                                                 onKeyPress={(e) => this.handleKeyPress(e)}
-                                                value={this.controller.postCode}/>
-                                                <span className={this.shouldMarkError('postCode') ? "glyphicon glyphicon-remove form-control-feedback" : ""}></span>
+                                                value={this.controller.postCode}/>                            
                                         </div>
                                         <br/>
                                         <div>

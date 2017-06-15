@@ -151,8 +151,11 @@ export class LoginComponent extends React.Component<{}, {}>{
                             <br/>
 
                             <div className="input-group">
-                                <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
+                                <span className="input-group-addon">
+                                    <span className="glyphicon glyphicon-envelope"></span>
+                                </span>  
                                 <input
+                                    maxLength={30}
                                     autoComplete="off"
                                     id="email" 
                                     name="email" 
@@ -163,11 +166,12 @@ export class LoginComponent extends React.Component<{}, {}>{
                                     value={this.formState.email.fieldValue}
                                     className={this.shouldMarkError('email') ? "form-control error" : "form-control"} /> 
                             </div>
-                            <p className='validationErrorMsg'>{this.formState.email.fieldValidationError}</p>
+                            <span className='validationErrorMsg'>{this.formState.email.fieldValidationError}</span>
 
                             <div className="input-group">
                                 <span className="input-group-addon"><i className="glyphicon glyphicon-lock color-blue"></i></span>
                                 <input
+                                    maxLength={20}
                                     autoComplete="off"
                                     onKeyUp={this.handleKeyUp}
                                     id="password" 
@@ -179,13 +183,13 @@ export class LoginComponent extends React.Component<{}, {}>{
                                     value={this.formState.password.fieldValue}
                                     className={this.shouldMarkError('password') ? "form-control error" : "form-control"} />                                                     
                             </div>
-                            <p className='validationErrorMsg'>{this.formState.password.fieldValidationError}</p>
+                            <span className='validationErrorMsg'>{this.formState.password.fieldValidationError}</span>
                             
                             <p className="text-right"><Link to='/login/passwordReset'>Forgot your password?</Link></p>
-                            <button default className="btn btn-default btn-block" onClick={this.signInUser}>LOG IN</button>
+                            <button default className="btn btn-primary btn-block" onClick={this.signInUser}>LOG IN</button>
                             <hr/>
 
-                            <p className='validationErrorMsg'>{this.formState.validationError}</p>
+                            <span className='validationErrorMsg'>{this.formState.validationError}</span>
 
                             <p className="text-center">
                                 <Link to='/Home' className="fliper-btn">Create new account? Register!</Link>

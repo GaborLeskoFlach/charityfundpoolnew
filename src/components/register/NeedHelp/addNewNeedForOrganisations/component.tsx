@@ -42,7 +42,8 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
     addNewListItem = (e) => {
         e.preventDefault()
         this.isLoading = true
-        if(this.isAdd){
+        this.needHelpWithListItem.createDate = new Date().toDateString()
+        if(this.isAdd){            
             this.props.controller.addNeedHelpForOrgsListItem(this.needHelpWithListItem).then((response) => {
                 this.isLoading = false
                 this.resetFormFields()
@@ -214,7 +215,8 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                             <div className={this.shouldMarkError('estimatedValue') ? "form-group has-error has-feedback" : "form-group"}>
                                 <label htmlFor="websiteLink">Estimated value</label>
                                 <span className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.estimatedValue.fieldValidationError}</span>
-                                <input 
+                                <input
+                                    maxLength={6}
                                     className={this.shouldMarkError('estimatedValue') ? "form-control error" : "form-control"}
                                     id="estimatedValue" 
                                     type="text" 
@@ -230,6 +232,7 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                 <label htmlFor="bestPrice">Best price</label>
                                 <span className='validationErrorMsg'>{controller.orgNeedHelpListItemFormState.bestPrice.fieldValidationError}</span>
                                 <input 
+                                    maxLength={6}
                                     className={this.shouldMarkError('bestPrice') ? "form-control error" : "form-control"}
                                     id="bestPrice" 
                                     type="text" 
@@ -240,8 +243,6 @@ export class CreateNewNeedForOrgsComponent extends React.Component<ICreateNewNee
                                     value={this.needHelpWithListItem.bestPrice}/>                                    
                             </div>
                             
-
-
                             <button className="btn btn-default" onClick={this.addNewListItem}>{this.btnCaption}</button>
 
                         </div>

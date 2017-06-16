@@ -5,6 +5,7 @@ import { IUserMapping, UserStatus, RegistrationRoles, IRoleInfo } from './compon
 import {observer} from 'mobx-react'
 import {observable } from 'mobx'
 import './styles.css'
+import Loader from 'react-loaders'
 
 //Ugh...no no no....shouldn't be this way
 //TODO Remove these guids immediately
@@ -29,7 +30,6 @@ interface INavigationComponentProps{
 
 interface ITabProps{
     tabProps : ITab
-    handleClick : () => void
 }
 
 interface ITab{
@@ -60,7 +60,7 @@ class Tab extends React.Component<ITabProps,{}>{
         return(
                             
             <li className='active'>
-                <NavLink activeClassName="active" to={to} onClick={this.props.handleClick } >{ name }</NavLink>             
+                <NavLink activeClassName="active" to={to} >{ name }</NavLink>             
             </li>            
         )
     }
@@ -73,7 +73,8 @@ export class AppFrame extends React.Component<INavigationComponentProps,{}>{
     @observable isLoading : boolean = false
     
     constructor(props : INavigationComponentProps){
-        super(props)       
+        super(props)
+         setCurrentRegistrationRole(RegistrationRoles.UnAuthenticated)         
     }
 
     componentDidMount(){
@@ -130,16 +131,9 @@ export class AppFrame extends React.Component<INavigationComponentProps,{}>{
                 this.currentUser = null
                 this.isLoading = false
                 setCurrentRegistrationRole(RegistrationRoles.UnAuthenticated)
+                this.forceUpdate()
             }
         })
-    }
-
-    handleClick(tab : ITab){
-       console.log('Click a Tab: ' + tab.name)
-    }
-
-    durationFn(deltaTop : number) {
-        return deltaTop
     }
 
     hasAdminGUID = () => {
@@ -164,54 +158,58 @@ export class AppFrame extends React.Component<INavigationComponentProps,{}>{
 
         if(_currentRegistrationRole !== RegistrationRoles.UnAuthenticated){
             if(tab.canSee[_currentRegistrationRole]){
-                return <Tab key={index} tabProps={tab} handleClick={() => this.handleClick} />
+                return <Tab key={index} tabProps={tab}  />
             }else{
                 return null
             }
         }else{
             if(tab.id === 1 || tab.id === 2 || tab.id === 5 || tab.id === 9 || this.hasAdminGUID()){
-                return <Tab key={index} tabProps={tab} handleClick={() => this.handleClick}/>
+                return <Tab key={index} tabProps={tab} />
             }
         }
     }
 
     render(){
-        return(
-            <div>
-                <header id="navigation">
-                    <div className="navbar navbar-fixed-top animated fadeIn" role="banner">
-                        <div className="container">
-                            <div className="navbar-header">
-                                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span className="sr-only">Toggle navigation</span>
-                                    <span className="icon-bar"></span>
-                                    <span className="icon-bar"></span>
-                                    <span className="icon-bar"></span>
-                                </button>
-                                <a className="navbar-brand" >
-                                    {
-                                        this.currentUser && !this.isLoading &&
-                                        <Avatar user={this.currentUser} />
-                                    }                                    
-                                </a>                    
-                            </div>	
+        if(this.isLoading){
+            return <Loader type="ball-pulse" active />
+        }else{
+            return(
+                <div>
+                    <header id="navigation">
+                        <div className="navbar navbar-fixed-top animated fadeIn" role="banner">
+                            <div className="container">
+                                <div className="navbar-header">
+                                    <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                        <span className="sr-only">Toggle navigation</span>
+                                        <span className="icon-bar"></span>
+                                        <span className="icon-bar"></span>
+                                        <span className="icon-bar"></span>
+                                    </button>
+                                    <a className="navbar-brand" >
+                                        {
+                                            this.currentUser && !this.isLoading &&
+                                            <Avatar user={this.currentUser} />
+                                        }                                    
+                                    </a>                    
+                                </div>	
 
-                            <nav className="collapse navbar-collapse navbar-right">					
-                                <ul className="nav navbar-nav">                                    
-                                    
-                                    {!this.isLoading && tabList.map((tab : ITab, index : number) => {
-                                        return (this.renderTab(index, tab))
-                                    })}
-                                </ul>		
-                            </nav>      
+                                <nav className="collapse navbar-collapse navbar-right">					
+                                    <ul className="nav navbar-nav">                                    
+                                        
+                                        {!this.isLoading && tabList.map((tab : ITab, index : number) => {
+                                            return (this.renderTab(index, tab))
+                                        })}
+                                    </ul>		
+                                </nav>      
+                            </div>
                         </div>
-                    </div>
-                </header>
-                
-                {this.props.children}
+                    </header>
+                    
+                    {this.props.children}
 
-            </div>
-        )
+                </div>
+            )
+        }
     }
 }
 

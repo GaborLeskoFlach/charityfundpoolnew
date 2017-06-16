@@ -1,7 +1,8 @@
 import {observable, action} from 'mobx';
 import { _firebaseApp } from '../firebaseAuth/component'
+import { convertFromObservable } from '../../utils/utils'
 import { toJS } from 'mobx';
-import { IOrgNeedHelpWithListItem, IDonation, IFieldValidation } from '../interfaces';
+import { IOrgNeedHelpWithListItem, IDonation, IFieldValidation,IRegistrationNeedHelpOrg, DataFilter } from '../interfaces';
 
 interface IDonationFields{
     fullName : IFieldValidation;
@@ -16,7 +17,7 @@ interface IDonationFields{
 export class DonationController {
     
     constructor() {
-        this.causes = [];
+       this.causes = [];
         this.isLoading = false;
         this.resetForm();
     }
@@ -76,8 +77,18 @@ export class DonationController {
     @action("get causes from DB")
     getCauses = () : Promise<Array<IOrgNeedHelpWithListItem>> => {
         return new Promise<Array<IOrgNeedHelpWithListItem>>((resolve) => {        
-            _firebaseApp.database().ref('needs').orderByChild('active').equalTo(true).on('value', (snapshot) => {
-                this.causes = snapshot.val();
+            _firebaseApp.database().ref('registrations/NeedHelp/Organisations').orderByChild('active').equalTo(true).on('value', (snapshot) => {
+                const organisations : Array<IRegistrationNeedHelpOrg> = snapshot.val()                
+
+                if(organisations){
+                    const organisationsWithNeeds : Array<IRegistrationNeedHelpOrg> = convertFromObservable(organisations).filter(x => x.needHelpWithList !== undefined)
+                    organisationsWithNeeds.map((org) => {
+                        convertFromObservable(org.needHelpWithList).filter(x => x.active === true).map((needs) => {
+                            this.causes.push(needs)
+                        })
+                    })
+                }
+
                 resolve(this.causes);
             })
         })

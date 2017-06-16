@@ -115,6 +115,13 @@ export class DonationPaymentConfiguration extends React.Component<IDonationPayme
         this.updatePaymentTabConfigState()
     }
 
+    handleKeyPress = (event) => {
+        const re = /[0-9A-F:]+/g
+        if (!re.test(event.key)) {
+            event.preventDefault()
+        }        
+    }
+
     render(){
 
         return(
@@ -133,17 +140,20 @@ export class DonationPaymentConfiguration extends React.Component<IDonationPayme
                                         <Route exact path="/donate/onetime" render={() => <DonationOneTime 
                                                                                             selectedTab={this.selectedTab} 
                                                                                             getPaymentSelectionConfig={this.getPaymentSelectionConfig} 
-                                                                                            handlePaymentSelect={this.handlePaymentSelect} />
+                                                                                            handlePaymentSelect={this.handlePaymentSelect} 
+                                                                                            handleKeyPress={this.handleKeyPress}/>
                                                                                     } />
                                         <Route exact path="/donate/monthlyrecurring" render={() => <DonationMonthlyRecurring 
                                                                                                     selectedTab={this.selectedTab} 
                                                                                                     getPaymentSelectionConfig={this.getPaymentSelectionConfig} 
-                                                                                                    handlePaymentSelect={this.handlePaymentSelect}/>
+                                                                                                    handlePaymentSelect={this.handlePaymentSelect}
+                                                                                                    handleKeyPress={this.handleKeyPress}/>
                                                                                             } />
                                         <Route exact path="/donate/forgift" render={() => <DonationForGift 
                                                                                             selectedTab={this.selectedTab} 
                                                                                             getPaymentSelectionConfig={this.getPaymentSelectionConfig} 
-                                                                                            handlePaymentSelect={this.handlePaymentSelect}/>
+                                                                                            handlePaymentSelect={this.handlePaymentSelect}
+                                                                                            handleKeyPress={this.handleKeyPress}/>
                                                                                     } />
                                     </Switch>
                                 </fieldset>
@@ -174,7 +184,7 @@ export class DonationPaymentConfiguration extends React.Component<IDonationPayme
     }
 }
 
-const DonationOneTime = ({selectedTab, getPaymentSelectionConfig, handlePaymentSelect}) => {
+const DonationOneTime = ({selectedTab, getPaymentSelectionConfig, handlePaymentSelect, handleKeyPress}) => {
     return(
         <div className={ selectedTab === '0' ? 'tab-pane fade in active' : 'tab-pane fade '} id="onetime">
             <ul className="fancy-label row">
@@ -222,7 +232,7 @@ const DonationOneTime = ({selectedTab, getPaymentSelectionConfig, handlePaymentS
                         <input type="radio" name="" value="" />
                         <label >
                             <div className="amount">
-                                <input id="amount" name="" placeholder="Enter Amount" size={30} type="text" aria-invalid="false" />
+                                <input id="amount" name="" placeholder="Enter Amount"maxLength={5} type="text" onKeyPress={(e) => handleKeyPress(e)} aria-invalid="false" />
                             </div>
                             <div className="description">
                                 <h4>Other Amount</h4>
@@ -236,7 +246,7 @@ const DonationOneTime = ({selectedTab, getPaymentSelectionConfig, handlePaymentS
     )
 }
 
-const DonationMonthlyRecurring = ({selectedTab, getPaymentSelectionConfig, handlePaymentSelect}) => {
+const DonationMonthlyRecurring = ({selectedTab, getPaymentSelectionConfig, handlePaymentSelect, handleKeyPress}) => {
     return(
         <div className={ selectedTab === '1' ? 'tab-pane fade in active' : 'tab-pane fade '} id="monthly">								
             <ul className="fancy-label row">
@@ -284,7 +294,7 @@ const DonationMonthlyRecurring = ({selectedTab, getPaymentSelectionConfig, handl
                         <input type="radio" name="" value="" />
                         <label >
                             <div className="amount">
-                                <input  id="amount" name="" placeholder="Enter Amount" size={30} type="text" aria-invalid="false" />
+                                <input  id="amount" name="" placeholder="Enter Amount" maxLength={5} type="text" onKeyPress={(e) => handleKeyPress(e)} aria-invalid="false" />
                             </div>
                             <div className="description">
                                 <h4>Other Amount</h4>
@@ -298,7 +308,8 @@ const DonationMonthlyRecurring = ({selectedTab, getPaymentSelectionConfig, handl
     )
 }
 
-const DonationForGift = ({selectedTab, getPaymentSelectionConfig, handlePaymentSelect}) => {
+const DonationForGift = ({selectedTab, getPaymentSelectionConfig, handlePaymentSelect, handleKeyPress}) => {
+    
    return(
         <div className={ selectedTab === '2' ? 'tab-pane fade in active' : 'tab-pane fade '} id="gift">
             <ul className="fancy-label row">
@@ -346,7 +357,7 @@ const DonationForGift = ({selectedTab, getPaymentSelectionConfig, handlePaymentS
                         <input type="radio" name="" value="" />
                         <label >
                             <div className="amount">
-                                <input  id="amount" name="" placeholder="Enter Amount" size={30} type="text" aria-invalid="false" />
+                                <input  id="amount" name="" placeholder="Enter Amount" maxLength={5} type="text" onKeyPress={(e) => handleKeyPress(e)}  aria-invalid="false" />
                             </div>
                             <div className="description">
                                 <h4>Other Amount</h4>

@@ -53,7 +53,7 @@ export class HomeComponent extends React.Component<{},{}>{
                                     </div>
                                 </Link>
                             </li>                            
-                            <li>
+                            {/*<li>
                                 <Link to="/donate/onetime">
                                     <div className="ch-item ch-img-2">
                                         <div className="ch-info">
@@ -61,7 +61,7 @@ export class HomeComponent extends React.Component<{},{}>{
                                         </div>
                                     </div>
                                 </Link>
-                            </li>
+                            </li>*/}
                             <li>
                                 <Link to="/register/WantToHelp">
                                     <div className="ch-item ch-img-3">

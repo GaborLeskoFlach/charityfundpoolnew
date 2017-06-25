@@ -129,7 +129,6 @@ export interface IDonation{
 export interface IMultiSelect extends IConvertDataConstraint{
     label : string;
     value : string;
-    ID : string;
     checked : boolean;
 }
 
@@ -138,9 +137,21 @@ export interface IWhatWeNeed {
     name : string;
 }
 
-export interface IWhatINeedHelpWith {
-    id : number;
-    name : string;
+export interface ITypeOfWork extends IConvertDataConstraint{
+    value : string
+    label : string
+    checked? : boolean
+}
+
+export interface IWhatINeedHelpWith extends IConvertDataConstraint {
+    value : string
+    label : string
+    checked? : boolean
+}
+
+export interface ISearchFilters{
+    key : string
+    value : string
 }
 
 //Contstraint -> For Generic interfaces

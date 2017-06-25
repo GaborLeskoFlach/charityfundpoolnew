@@ -40,4 +40,6 @@
 .subscribe input[type="text"]::-webkit-input-placeholder { color: #888; }
 
 
-
+div.bookJobModal {
+	width:350px
+}

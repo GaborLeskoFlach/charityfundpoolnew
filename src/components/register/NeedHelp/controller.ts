@@ -6,7 +6,7 @@ import { convertData } from '../../../utils/utils';
 import { Constants } from '../../constants';
 import { DataFilter, IRegistrationNeedHelpInd, IRegistrationNeedHelpOrg, 
         IWhatWeNeed, IWhatINeedHelpWith,  
-        IOrgNeedHelpWithListItem, RegistrationType, IFieldValidation, IUserMapping, IIndividualNeedHelpWithListItem } from '../../interfaces';
+        IOrgNeedHelpWithListItem, RegistrationType, IFieldValidation, IUserMapping, IIndividualNeedHelpWithListItem, ITypeOfWork } from '../../interfaces';
 
 interface IRegisterIndividualFormFields{
     fullName : IFieldValidation;
@@ -46,7 +46,8 @@ interface IRegisterOrgNeedHelpListItemFormFields{
 export class RegisterNeedHelpController {
 
     registrations : IRegistrationNeedHelpInd;
-    whatINeedHelpWith : Array<IWhatINeedHelpWith>;
+    whatINeedHelpWith : Array<IWhatINeedHelpWith>
+    typesOfWork : Array<ITypeOfWork>
 
     constructor() {
         this.registrationType = 'Individual';
@@ -82,13 +83,7 @@ export class RegisterNeedHelpController {
     @observable isExistingRegistration : boolean
     @observable registrationTypeText : string
 
-    addNeed1 = (value : IWhatWeNeed) => {
-        _firebaseApp.database().ref('utils/whatWeNeed').push(value);
-    }
 
-    addNeed2 = (value : IWhatINeedHelpWith) => {
-        _firebaseApp.database().ref('utils/whatINeedHelpWith').push(value);
-    }
 
     @action("reset form (state)")
     resetForm = () => {
@@ -362,16 +357,28 @@ export class RegisterNeedHelpController {
         });
     }
 
+
+    //Should be in Store
     @action("get WhatINeedHelpWith from DB")
-    getWhatINeedHelpWith = action(() => {
+    async getWhatINeedHelpWith(){
         return new Promise<Array<IWhatINeedHelpWith>>((resolve) => {
             _firebaseApp.database().ref('utils/whatINeedHelpWith').once('value', (snapshot) => {
-                this.whatINeedHelpWith = snapshot.val();  
-            }).then(response => {
-                resolve(this.whatINeedHelpWith);
+                this.whatINeedHelpWith = snapshot.val()
+                resolve()
+            })
+        })
+    }
+
+    //Should be in store
+    @action("get typesOfWork from DB")
+    async getTypesOfWork(){
+        return new Promise<Array<ITypeOfWork>>((resolve) => {
+            _firebaseApp.database().ref('utils/typesOfWork').once('value', (snapshot) => {
+                this.typesOfWork = snapshot.val()
+                resolve()
             }) 
-        });
-    })
+        })
+    }     
 
     @action("Set Registration Type (Dropdown)")
     setRegistrationType = action((value:string) => {

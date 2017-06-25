@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { IWhatINeedHelpWith, IIndividualNeedHelpWithListItem, IDateRange, DataFilter } from '../../../interfaces'
+import { IWhatINeedHelpWith, IIndividualNeedHelpWithListItem, IDateRange, DataFilter, ITypeOfWork } from '../../../interfaces'
 import { map } from 'lodash'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
@@ -171,7 +171,7 @@ export class CreateNewNeedForIndividualsComponent extends React.Component<ICreat
                                             <option value="">Please select an option...</option>
                                             
                                                 {map(this.props.controller.whatINeedHelpWith, (need : IWhatINeedHelpWith, key) => (
-                                                    <option key={key} value={need.name}>{need.name}</option>
+                                                    <option key={key} value={need.value}>{need.label}</option>
                                                 ))}
 
                                         </select>                                                
@@ -180,14 +180,11 @@ export class CreateNewNeedForIndividualsComponent extends React.Component<ICreat
                                 <div className="form-group">
                                     <label htmlFor="typeOfWork">Type of work (*)</label>
                                     <div>
-                                        <select 
-                                            className="form-control"
-                                            id="typeOfWork" 
-                                            onChange={this.handleChange} value={this.needHelpWithListItem.typeOfWork}>
+                                        <select className="form-control" id="typeOfWork" onChange={this.handleChange} value={this.needHelpWithListItem.typeOfWork}>
                                             <option value="">Please select an option...</option>
-                                            <option value="Light duty work">Light duty work</option>
-                                            <option value="Medium duty work">Medium duty work</option>
-                                            <option value="Heavy duty work">Heavy duty work</option>
+                                            {map(this.props.controller.typesOfWork, (need : ITypeOfWork, key) => (
+                                                <option key={key} value={need.value}>{need.label}</option>
+                                            ))} 
                                         </select>
                                     </div>     
                                 </div>

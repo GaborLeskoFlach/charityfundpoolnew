@@ -56,25 +56,27 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
         return RegistrationType.NeedHelpInd
     }
 
-    componentWillMount(){
+    async componentWillMount(){
         this.controller.isLoading = true
-        this.controller.getWhatINeedHelpWith().then(response => {                
-            if(_firebaseAuth.currentUser !== null){
-                this.controller.getWhatWeNeedForOrganisation().then(response => {
-                    if(this.requestURL_ID){
-                        this.controller.getRegistrationByTypeAndID(this.getRegistrationType(),this.requestURL_ID).then(response => {                
-                            this.controller.isLoading = false
-                        })
-                    }else if(!this.requestURL_ID && _firebaseAuth.currentUser){
-                        this.controller.getRegistrationByID('NeedHelp',_firebaseAuth.currentUser.uid).then(response => {                
-                            this.controller.isLoading = false
-                        })
-                    }
-                })
-            }else{
-                this.controller.isLoading = false
-            }
-        })                     
+        await this.controller.getWhatINeedHelpWith()
+        await this.controller.getTypesOfWork()
+
+        if(_firebaseAuth.currentUser !== null){
+            this.controller.getWhatWeNeedForOrganisation().then(response => {
+                if(this.requestURL_ID){
+                    this.controller.getRegistrationByTypeAndID(this.getRegistrationType(),this.requestURL_ID).then(response => {                
+                        this.controller.isLoading = false
+                    })
+                }else if(!this.requestURL_ID && _firebaseAuth.currentUser){
+                    this.controller.getRegistrationByID('NeedHelp',_firebaseAuth.currentUser.uid).then(response => {                
+                        this.controller.isLoading = false
+                    })
+                }
+            })
+        }else{
+            this.controller.isLoading = false
+        }
+                
     }
 
     validate = (registrationType : string) => {
@@ -609,7 +611,7 @@ export class RegisterIndividualComponent extends React.Component<IRegistrationPr
         return (
             <div className={ controller.registrationType === 'Individual' ? 'tab-pane fade in active' : 'tab-pane fade '} id="individualTab">
 
-                <p className='validationErrorMsg'>{this.props.controller.registerIndividualFormState.validationError}</p>
+                <span className='validationErrorMsg'>{this.props.controller.registerIndividualFormState.validationError}</span>
 
                 <div className={this.shouldMarkError('fullName') ? "form-group has-error has-feedback" : "form-group"}>
                     <span className="mandatory-asterix"><label htmlFor="fullName">Your Name</label></span>
@@ -1128,7 +1130,7 @@ export class RegisterOrganisationComponent extends React.Component<IRegistration
         return (
             <div className={ controller.registrationType === 'Org' ? 'tab-pane fade in active' : 'tab-pane fade '} id="organisationTab">
 
-                <p className='validationErrorMsg'>{controller.registerOrganisationFormState.validationError}</p>
+                <span className='validationErrorMsg'>{controller.registerOrganisationFormState.validationError}</span>
 
                 <div className={this.shouldMarkError('fullName') ? "form-group has-error has-feedback" : "form-group"}>
                     <span className="mandatory-asterix"><label htmlFor="fullName">Your Name</label></span>

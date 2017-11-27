@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
 import 'loaders.css/loaders.css'
-import 'react-toastify/dist/ReactToastify.min.css'
+//import 'react-toastify/dist/ReactToastify.min.css'
 
 //Toastr
 import { ToastContainer } from 'react-toastify';
@@ -120,7 +120,9 @@ const CharityFundPoolApp = () => (
                         <Route path="/register/NeedHelp/organisation/:id" component={_RegisterNeedHelp} />
                         <Route path="/register/WantToHelp/:id" component={_RegisterWantToHelp} /> 
                         
-
+                        <Route exact path="/register/NeedHelp/individual/jobs/singleDate" component={_RegisterNeedHelp} />
+                        <Route exact path="/register/NeedHelp/individual/jobs/dateRange" component={_RegisterNeedHelp} />
+                        <Route exact path="/register/NeedHelp/individual/jobs/flexible" component={_RegisterNeedHelp} />
 
                         <Route path="/confirm" component={_RegistrationConfirmation } />    
                         <Route path="/aboutUs/ourStory" component={_WhoWeAre} />

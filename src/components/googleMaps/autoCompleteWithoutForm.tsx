@@ -25,8 +25,8 @@ interface IState{
 
 class Contents extends React.Component<IContents,IState>{
   
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
 
     this.state = {
       place : null,

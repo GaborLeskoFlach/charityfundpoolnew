@@ -8,6 +8,7 @@ import { convertData } from '../../utils/utils'
 import Loader from 'react-loaders'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
+import { PropTypes } from 'prop-types'
 
 @observer
 export class NeedList extends React.Component<{},{}>{
@@ -15,7 +16,7 @@ export class NeedList extends React.Component<{},{}>{
     @observable selectedTab : string = '0'
 
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
     constructor(props : any)
@@ -40,7 +41,7 @@ export class NeedList extends React.Component<{},{}>{
                             <div className="donate-section padding">				
                                 <div className="donate-tab text-center">
                                     <div id="donate">
-                                        <ul className="tab-list list-inline" role="tablist"  onClick={this.handleTabSelection} value={this.selectedTab}>
+                                        <ul className="tab-list list-inline" role="tablist"  onClick={this.handleTabSelection} >
                                             <li className={ this.selectedTab === '0' ? 'active' : ''}><Link id='0' to="/viewNeeds/activeNeeds" role="tab" data-toggle="tab">Currently active Needs</Link></li>
                                             <li className={ this.selectedTab === '1' ? 'active' : ''}><Link id='1' to="/viewNeeds/archivedNeeds" role="tab" data-toggle="tab">Archived Needs</Link></li>
                                         </ul>  
@@ -70,7 +71,7 @@ interface ITabContent{
 export class TabContent extends React.Component<ITabContent, {}>{
     
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
     constructor(props){

@@ -3,8 +3,9 @@ import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { BookJob } from '../jobs/modals/bookJob'
 import { IRegistrationNeedHelpInd, IPosition, IIndividualNeedHelpWithListItem } from '../interfaces'
-let ModalContainer = require('react-modal-dialog').ModalContainer
-let ModalDialog = require('react-modal-dialog').ModalDialog
+
+//let ModalContainer = require('react-modal-dialog').ModalContainer
+//let ModalDialog = require('react-modal-dialog').ModalDialog
 
 interface IResponsiveTiles{    
     data : Array<IRegistrationNeedHelpInd>
@@ -15,10 +16,6 @@ interface IResponsiveTiles{
 export class ResponsiveTiles extends React.Component<IResponsiveTiles,{}>{
     @observable isShowingModal : boolean = false
     @observable registration : IRegistrationNeedHelpInd = null
-
-    constructor(){
-        super()
-    }
 
     showDetails = (e, registration : IRegistrationNeedHelpInd) => {
         e.preventDefault()
@@ -74,12 +71,13 @@ export class ResponsiveTiles extends React.Component<IResponsiveTiles,{}>{
                         <div className="row">
                             <div className="col-sm-6">
                             {
-                                this.isShowingModal &&
+                                this.isShowingModal && true
+                                /*
                                 <ModalContainer onClose={this.handleCloseModal} >
                                     <ModalDialog onClose={this.handleCloseModal}>
                                         <BookJob  closeModal={this.handleCloseModal} registration={this.registration} />
                                     </ModalDialog>
-                                </ModalContainer>                            
+                                </ModalContainer>*/
                             }  
                             </div>
                         </div>

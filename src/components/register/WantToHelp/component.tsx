@@ -20,9 +20,12 @@ export class RegisterWantToHelpComponent extends React.Component<IRegisterWantTo
     controller : RegisterWantToHelpController
     requestURL_ID : string
 
+    /*
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
-    }
+        router: any
+    }*/
+
+    static contextTypes : any
 
     constructor(props : IRegisterWantToHelpComponent){
         super(props)

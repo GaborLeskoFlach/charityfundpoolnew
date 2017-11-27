@@ -5,7 +5,7 @@ import { _firebaseAuth, _firebaseApp } from '../../firebaseAuth/component'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import Loader from 'react-loaders'
-
+import { PropTypes } from 'prop-types'
 import './styles.css'
 
 @observer
@@ -14,11 +14,11 @@ export class Dashboard extends React.Component<{}, {}>{
     @observable selectedTab : string = '0'
     
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.controller = new DashboardController()
     }
 
@@ -87,7 +87,7 @@ export class Dashboard extends React.Component<{}, {}>{
                     <div className="col-sm-8">
                         <div className="donate-tab text-center">
                             <div id="donate">
-                                <ul className="tab-list list-inline" role="tablist"  onClick={this.handleTabSelection} value={this.selectedTab}>
+                                <ul className="tab-list list-inline" role="tablist"  onClick={this.handleTabSelection} >
                                     <li className={ this.selectedTab === '0' ? 'active' : ''}><Link id='0' to="/home/registrations" role="tab" data-toggle="tab">Registrations</Link></li>
                                     <li title='Notifications Received' className={ this.selectedTab === '1' ? 'active' : ''}><Link id='1' to="/home/notificationsReceived" role="tab" data-toggle="tab"><i className="glyphicon glyphicon-log-in" /> Notifications (Received)</Link></li>
                                     <li title='Notifications Sent' className={ this.selectedTab === '2' ? 'active' : ''}><Link id='2' to="/home/notificationsSent" role="tab" data-toggle="tab"><i className="glyphicon glyphicon-log-out" /> Notifications (Sent)</Link></li>

@@ -6,7 +6,7 @@ import { IAuthValidationError } from '../interfaces'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import './styles.css'
-
+import { PropTypes } from 'prop-types'
 
 interface IFieldValidation{
     fieldValue : string;
@@ -27,11 +27,11 @@ export class LoginComponent extends React.Component<{}, {}>{
     @observable isFormSubmitted : boolean = false;
 
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.formState = {
             email : {
@@ -186,7 +186,7 @@ export class LoginComponent extends React.Component<{}, {}>{
                             <span className='validationErrorMsg'>{this.formState.password.fieldValidationError}</span>
                             
                             <p className="text-right"><Link to='/login/passwordReset'>Forgot your password?</Link></p>
-                            <button default className="btn btn-primary btn-block" onClick={this.signInUser}>LOG IN</button>
+                            <button  className="btn btn-primary btn-block" onClick={this.signInUser}>LOG IN</button>
                             <hr/>
 
                             <span className='validationErrorMsg'>{this.formState.validationError}</span>

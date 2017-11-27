@@ -10,8 +10,8 @@ export class GoogleMapHost extends React.Component<{},{}>{
         console.log('Clicked on Marker => {0}', e)
     }
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         
         this.defaultPosition = {
             lat :  -37.81361100000001,

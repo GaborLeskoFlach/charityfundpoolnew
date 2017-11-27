@@ -16,6 +16,7 @@ import { ListFilterWantToHelpRegistrations } from './WantToHelp/listFilter'
 
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
+import { PropTypes } from 'prop-types'
 
 @observer
 export class Administration extends React.Component<{},{}>{
@@ -25,9 +26,9 @@ export class Administration extends React.Component<{},{}>{
     @observable tabWantActive : boolean
     @observable tabArchivedActive : boolean
     @observable selectedTab : string = '0'
-
+    
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
     constructor(props)
@@ -204,11 +205,11 @@ export class Administration extends React.Component<{},{}>{
                             <div className="donate-section padding">				
                                 <div className="donate-tab text-center">
                                     <div id="donate">
-                                        <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} value={this.selectedTab} >
-                                            <li className={ this.selectedTab === '0' ? 'active' : ''}><Link id="0" to="/administration/peopleNeedHelp" role="tab" data-toggle="tab">People who need help</Link></li>
-                                            <li className={ this.selectedTab === '1' ? 'active' : ''}><Link id="1" to="/administration/organizationsNeedHelp" role="tab" data-toggle="tab">Organizations need help</Link></li>
-                                            <li className={ this.selectedTab === '2' ? 'active' : ''}><Link id="2" to="/administration/peopleWantToHelp" role="tab" data-toggle="tab">People who want to help</Link></li>
-                                            <li className={ this.selectedTab === '3' ? 'active' : ''}><Link id="3" to="/administration/archivedRegistrations" role="tab" data-toggle="tab">Archived Registrations</Link></li>                    
+                                        <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection}  >
+                                            <li className={ this.selectedTab === '0' ? 'active' : ''}><Link to="/administration/peopleNeedHelp" data-toggle="tab">People who need help</Link></li>
+                                            <li className={ this.selectedTab === '1' ? 'active' : ''}><Link to="/administration/organizationsNeedHelp"  data-toggle="tab">Organizations need help</Link></li>
+                                            <li className={ this.selectedTab === '2' ? 'active' : ''}><Link to="/administration/peopleWantToHelp"  data-toggle="tab">People who want to help</Link></li>
+                                            <li className={ this.selectedTab === '3' ? 'active' : ''}><Link to="/administration/archivedRegistrations" data-toggle="tab">Archived Registrations</Link></li>                    
                                         </ul>                                            
                                        
                                         <fieldset className="tab-content">

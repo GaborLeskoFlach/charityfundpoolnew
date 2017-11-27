@@ -21,8 +21,8 @@ interface IGoogleMapSimple{
 export class GoogleMapSimple extends React.Component<IGoogleMapSimple,{}>{
     @observable mapState : IMapState
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
 
         this.mapState = {
             showingInfoWindow : false,

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import * as DayPicker from 'react-day-picker'
-import { DateUtils } from 'react-day-picker'
+import DayPicker from 'react-day-picker'
+//import { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
@@ -43,7 +43,7 @@ export default class SingleDate extends React.Component<ISingleDateProps,{}> {
     return (
       <div>
         <DayPicker
-          selectedDays={ day => DateUtils.isSameDay(this.selectedDay, day) } onDayClick={this.handleDayClick}
+          selectedDays={ day => DayPicker.DateUtils.isSameDay(this.selectedDay, day) } onDayClick={this.handleDayClick}
         />
         <h4>
           { new moment(this.selectedDay).isValid() ? this.selectedDay.toLocaleDateString() : 'Please select a day' }

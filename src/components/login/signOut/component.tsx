@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { signOut } from '../../firebaseAuth/component'
+import { PropTypes } from 'prop-types'
 
 export class SignOut extends React.Component<any,any>{
 
@@ -8,7 +9,7 @@ export class SignOut extends React.Component<any,any>{
     }
 
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
     componentWillMount(){

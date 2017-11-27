@@ -103,14 +103,6 @@ export class DonationPaymentConfiguration extends React.Component<IDonationPayme
     }
 
     handleTabSelection = (e) => {
-        switch(e.target.id){
-            case "0":
-            break
-            case "1":
-            break
-            case "2":
-            break
-        }
         this.selectedTab = e.target.id
         this.updatePaymentTabConfigState()
     }
@@ -130,7 +122,7 @@ export class DonationPaymentConfiguration extends React.Component<IDonationPayme
                     <div className="donate-section padding">				
                         <div className="donate-tab text-center">
                             <div id="donate">
-                                <ul className="tab-list list-inline" role="tablist"  onClick={this.handleTabSelection} value={this.selectedTab}>
+                                <ul className="tab-list list-inline" role="tablist"  onClick={this.handleTabSelection} >
                                     <li className={ this.selectedTab === '0' ? 'active' : ''}><Link id='0' to="/donate/onetime" role="tab" data-toggle="tab">One time</Link></li>
                                     <li className={ this.selectedTab === '1' ? 'active' : ''}><Link id='1' to="/donate/monthlyrecurring" role="tab" data-toggle="tab">Monthly recurring</Link></li>
                                     <li className={ this.selectedTab === '2' ? 'active' : ''}><Link id='2' to="/donate/forgift" role="tab" data-toggle="tab">For gift</Link></li>

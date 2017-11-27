@@ -8,8 +8,8 @@ import { AdministrationController } from '../controller'
 import Loader from 'react-loaders'
 import '../styles.css'
 
-let ModalContainer = require('react-modal-dialog').ModalContainer
-let ModalDialog = require('react-modal-dialog').ModalDialog
+//let ModalContainer = require('react-modal-dialog').ModalContainer
+//let ModalDialog = require('react-modal-dialog').ModalDialog
 
 interface ICard{
     controller : AdministrationController
@@ -202,7 +202,8 @@ export class Card extends React.Component<ICard, {}>{
                                     }
                                 </div>
                                 {
-                                    this.isShowingModal &&
+                                    this.isShowingModal && true
+                                    /*
                                     <ModalContainer onClose={this.handleClose}>
                                         <ModalDialog onClose={this.handleClose}>
                                             <strong>Photo Upload</strong>
@@ -213,7 +214,7 @@ export class Card extends React.Component<ICard, {}>{
                                                 />
                                             </div>
                                         </ModalDialog>
-                                    </ModalContainer>                            
+                                    </ModalContainer>*/
                                 }                            
                             </div>                                                                                                                  
                         </div>

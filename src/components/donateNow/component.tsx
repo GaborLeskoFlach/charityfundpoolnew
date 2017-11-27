@@ -11,6 +11,7 @@ import { map } from 'lodash'
 const Mask = require('react-masking').default
 import Loader from 'react-loaders'
 import { DonationPaymentConfiguration, IPaymentSelect } from './donationPaymentConfiguration'
+import { PropTypes } from 'prop-types'
 
 interface IRouteParams{
     causeId : string
@@ -23,9 +24,9 @@ interface IDonateNowComponentProps{
 @observer
 export class DonateNowComponent extends React.Component<IDonateNowComponentProps,{}>{
     controller : DonationController
-
+    
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
     constructor(props : IDonateNowComponentProps){

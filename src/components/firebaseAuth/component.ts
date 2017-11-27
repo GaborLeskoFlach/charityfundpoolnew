@@ -1,7 +1,6 @@
 import * as firebase from 'firebase';
 import { IUserMapping, UserStatus, IRoleInfo, RegistrationRoles, ILocation, RegistrationType } from '../interfaces';
 
-
 var config = {
     apiKey: "AIzaSyA-Y-PwwThMfyUuQVIliAIU9JHsuQF03_k",
     authDomain: "charityfundpool-staging.firebaseapp.com",
@@ -45,7 +44,7 @@ function register(email: string, password: string, shouldSendVerificationEmail :
     return new Promise((resolve, reject) => {        
         if(registerUser){
             if (!email || !password) {
-                resolve(false);
+                resolve();
                 console.log('email and password required');
             }
             // Register user
@@ -80,7 +79,7 @@ function register(email: string, password: string, shouldSendVerificationEmail :
                                         }
 
                                         addNewRole(registration.uid,role).then((response) => {
-                                            resolve(true)
+                                            resolve()
                                         })
                                     }).catch((error) => {
                                         reject('Failed to add mapping information to Users')

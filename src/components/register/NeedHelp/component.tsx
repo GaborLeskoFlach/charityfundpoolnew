@@ -12,7 +12,7 @@ import { CreateNewNeedForIndividualsComponent } from './addNewNeedForIndividuals
 import Loader from 'react-loaders'
 import { _firebaseAuth } from '../../firebaseAuth/component'
 import GoogleAddress from '../../googleMaps/autoCompleteWithoutForm'
-
+import { PropTypes } from 'prop-types'
 import './styles.css'
 const Mask = require('react-masking').default
 
@@ -31,7 +31,7 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
     requestURL_ID : string
 
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
     constructor(props : IRegisterNeedHelpComponentProps){
@@ -341,7 +341,7 @@ export class RegisterNeedHelpComponent extends React.Component<IRegisterNeedHelp
                         <div id="donate">
                             <Router>
                                 <div>
-                                    <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} value={this.controller.registrationType} >
+                                    <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection}  >
                                         <li className={ (this.controller.registrationType === 'Individual') ? 'active' : this.shouldTabBeDisabled()}><Link id='Individual' to='/register/NeedHelp/individual' role="tab" data-toggle="tab">I need help for myself</Link></li>
                                         <li className={ (this.controller.registrationType === 'Org') ? 'active' : this.shouldTabBeDisabled()}><Link id='Org' to='/register/NeedHelp/organisation' role="tab" data-toggle="tab">I need help for my charity</Link></li>
                                     </ul>

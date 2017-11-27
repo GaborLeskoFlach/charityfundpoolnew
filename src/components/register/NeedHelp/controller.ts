@@ -249,9 +249,10 @@ export class RegisterNeedHelpController {
                 this.getRegistrationByID('NeedHelp',_firebaseAuth.currentUser.uid).then((response) => {
                     resolve(true);
                 })  
-            }).catch((error) => {
-                reject(error.message)
             })
+            /*.catch((error) => {
+                reject(error.message)
+            })*/
         })        
     })
 
@@ -291,9 +292,9 @@ export class RegisterNeedHelpController {
                 this.getRegistrationByID('NeedHelp',_firebaseAuth.currentUser.uid).then((response) => {
                     resolve(true);
                 })  
-            }).catch((error) => {
+            })/*.catch((error) => {
                 reject(error.message)
-            })
+            })*/
         })        
     })
 

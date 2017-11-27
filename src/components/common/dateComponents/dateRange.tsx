@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
-import * as DayPicker from 'react-day-picker'
-import { DateUtils } from 'react-day-picker'
+import DayPicker from 'react-day-picker'
+//import { DateUtils } from 'react-day-picker'
 import { IDateRange } from '../../interfaces'
 import 'react-day-picker/lib/style.css'
 import { observer } from 'mobx-react'
@@ -14,7 +14,7 @@ interface IDateRangeProps{
 
 @observer
 export default class DateRange extends React.Component<IDateRangeProps,{}> {
-  @observable range : { from? : Date, to? : Date }
+  @observable range : { from : Date, to : Date }
 
   constructor(props) {
     super(props)
@@ -40,7 +40,7 @@ export default class DateRange extends React.Component<IDateRangeProps,{}> {
 
   handleDayClick(e, day) {
     //1. retrieve set Date(s) from DayPicker component
-    const rangeToSet : { from?: Date, to?: Date } = DateUtils.addDayToRange(day, this.range)
+    const rangeToSet : { from: Date, to: Date } = DayPicker.DateUtils.addDayToRange(day, this.range)
     //2. set State
     this.range = { from : rangeToSet.from, to : rangeToSet.to } 
     //3. let calling component know what the selection is
@@ -70,7 +70,7 @@ export default class DateRange extends React.Component<IDateRangeProps,{}> {
         <DayPicker
           ref="daypicker"
           numberOfMonths={ 2 }
-          selectedDays={ day => DateUtils.isDayInRange(day, { from, to }) }
+          selectedDays={ day => DayPicker.DateUtils.isDayInRange(day, { from, to }) }
           onDayClick={ this.handleDayClick }
         />
       </div>

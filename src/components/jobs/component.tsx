@@ -175,8 +175,8 @@ export class SearchResults extends React.Component<ISearchResults,{}>{
     defaultPosition : IPosition
     searchResults : Array<IRegistrationNeedHelpInd>
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.controller = new JobSearchController()
     }
 

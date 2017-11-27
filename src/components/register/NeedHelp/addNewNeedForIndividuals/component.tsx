@@ -7,6 +7,7 @@ import * as FormFields from '../../formFields'
 import { _firebaseAuth } from '../../../firebaseAuth/component'
 import { RegisterNeedHelpController } from '../controller'
 import { convertData } from '../../../../utils/utils'
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 
 import SingleDate from '../../../common/dateComponents/singleDate'
 import DateRange from '../../../common/dateComponents/dateRange'
@@ -21,7 +22,8 @@ export class CreateNewNeedForIndividualsComponent extends React.Component<ICreat
     @observable needHelpWithListItem : IIndividualNeedHelpWithListItem
     @observable isLoading : boolean = false
     @observable btnCaption : string = 'Add new Need'
-    @observable isAdd : boolean = true    
+    @observable isAdd : boolean = true   
+    @observable selectedTab : string = '0' 
 
     constructor(props) {
         super(props)
@@ -141,6 +143,11 @@ export class CreateNewNeedForIndividualsComponent extends React.Component<ICreat
         }        
     }
 
+    handleTabSelection = (e) => {
+        this.selectedTab = e.target.id
+        this.forceUpdate()
+    }
+
     render() {
         const style : React.CSSProperties = {
             textAlign : 'center'
@@ -195,25 +202,37 @@ export class CreateNewNeedForIndividualsComponent extends React.Component<ICreat
 
                                                 <div className="col-sm-12 tab-section">
 
-                                                    <ul className="tab-list list-inline" role="tablist">
-                                                        <li className="active"><a href="#singleDate" role="tab" data-toggle="tab">Select a single date</a></li>
-                                                        <li><a href="#dateRange" role="tab" data-toggle="tab">Select a date range</a></li>
-                                                        <li><a href="#flexible" role="tab" data-toggle="tab">Flexible</a></li>
+                                                    <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} >
+                                                        <li className={ this.selectedTab === '0' ? 'active' : ''}><Link id='0' to="/register/NeedHelp/individual/jobs/singleDate" role="tab" data-toggle="tab">Select a single date</Link></li>
+                                                        <li className={ this.selectedTab === '1' ? 'active' : ''}><Link id='1' to="/register/NeedHelp/individual/jobs/dateRange" role="tab" data-toggle="tab">Select a date range</Link></li>
+                                                        <li className={ this.selectedTab === '2' ? 'active' : ''}><Link id='2' to="/register/NeedHelp/individual/jobs/flexible" role="tab" data-toggle="tab">Flexible</Link></li>
                                                     </ul>
 
                                                     <fieldset className="tab-content">
-                                                        <div className="tab-pane fade in active" id="singleDate">
-                                                            <SingleDate onDayClick={this.handleDaySelection} setSingleDate={this.convertSingleDate(this.needHelpWithListItem.whenINeedHelp.singleDate.day) }/>
-                                                            <label><input type="checkbox" id="singleDateReoccurring" onChange={this.handleChange} checked={this.needHelpWithListItem.whenINeedHelp.singleDate.reoccurring}/> Reoccurring</label>
-                                                        </div>
-                                                        <div className="tab-pane fade " id="dateRange">								
-                                                            <DateRange onDateRangeClick={this.handleDateRangeSelection} setDateRange={this.convertDateRange(this.needHelpWithListItem.whenINeedHelp.dateRange) }/>
-                                                            <br />
-                                                            <label><input type="checkbox" id="dateRangeReoccurring" checked={this.needHelpWithListItem.whenINeedHelp.dateRange.reoccurring} onChange={this.handleChange} /> Reoccurring</label>
-                                                        </div>
-                                                        <div className="tab-pane fade" id="flexible">
-                                                            <label><input type="checkbox" id="flexibleDates" checked={this.needHelpWithListItem.whenINeedHelp.flexible} onChange={this.handleChange} /> Flexible</label>
-                                                        </div>                        
+                                                        <Switch>
+                                                            <Route exact path="/register/NeedHelp/individual/jobs/singleDate" render={() => (                                                            
+                                                                <SingleDateTab selectedTab={this.selectedTab}  
+                                                                            handleDaySelection={this.handleDaySelection} 
+                                                                            handleChange={this.handleChange} 
+                                                                            convertSingleDate={this.convertSingleDate} 
+                                                                            needHelpWithListItem={this.needHelpWithListItem}/>
+                                                            )}/>
+
+                                                            <Route exact path="/register/NeedHelp/individual/jobs/dateRange" render={() => (
+                                                                <DateRangeTab selectedTab={this.selectedTab}  
+                                                                            handleDateRangeSelection={this.handleDateRangeSelection} 
+                                                                            handleChange={this.handleChange} 
+                                                                            convertDateRange={this.convertDateRange} 
+                                                                            needHelpWithListItem={this.needHelpWithListItem}/>
+                                                            )}/>
+
+                                                            <Route exact path="/register/NeedHelp/individual/jobs/flexible" render={() => (
+                                                                <FlexibleTab selectedTab={this.selectedTab} 
+                                                                            handleChange={this.handleChange} 
+                                                                            needHelpWithListItem={this.needHelpWithListItem}/>
+                                                            )}/>
+
+                                                        </Switch>                      
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -259,5 +278,31 @@ export class CreateNewNeedForIndividualsComponent extends React.Component<ICreat
             )
         }
     }
+}
 
+const SingleDateTab = ({selectedTab, handleDaySelection, handleChange, convertSingleDate, needHelpWithListItem}) => {
+    return(
+        <div className={ selectedTab === '0' ? 'tab-pane fade in active' : 'tab-pane fade '} id="singleDate">
+            <SingleDate onDayClick={handleDaySelection} setSingleDate={convertSingleDate(needHelpWithListItem.whenINeedHelp.singleDate.day) }/>
+            <label><input type="checkbox" id="singleDateReoccurring" onChange={handleChange} checked={needHelpWithListItem.whenINeedHelp.singleDate.reoccurring}/> Reoccurring</label>
+        </div>
+    )
+}
+
+const DateRangeTab = ({selectedTab, handleDateRangeSelection, handleChange, convertDateRange, needHelpWithListItem}) => {
+    return(
+        <div className={ selectedTab === '1' ? 'tab-pane fade in active' : 'tab-pane fade '} id="dateRange">			
+            <DateRange onDateRangeClick={handleDateRangeSelection} setDateRange={convertDateRange(needHelpWithListItem.whenINeedHelp.dateRange) }/>
+            <br />
+            <label><input type="checkbox" id="dateRangeReoccurring" checked={needHelpWithListItem.whenINeedHelp.dateRange.reoccurring} onChange={handleChange} /> Reoccurring</label>
+        </div>
+    )
+}
+
+const FlexibleTab = ({selectedTab, handleChange, needHelpWithListItem}) => {
+    return(
+        <div className={ selectedTab === '2' ? 'tab-pane fade in active' : 'tab-pane fade '} id="flexible">
+            <label><input type="checkbox" id="flexibleDates" checked={needHelpWithListItem.whenINeedHelp.flexible} onChange={handleChange} /> Flexible</label>
+        </div>
+    )
 }

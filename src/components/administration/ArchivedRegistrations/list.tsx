@@ -83,7 +83,7 @@ export class ArchivedRegistrations extends React.Component<IArchivedRegistration
                                 <div className="donate-section padding">				
                                     <div className="donate-tab text-center">
                                         <div id="donate">
-                                            <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} value={this.selectedTab}>
+                                            <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} >
                                                 <li className={ this.selectedTab === 0 ? 'active' : ''}><Link id="0" to="/administration/archivedRegistrations/peopleNeedHelp" role="tab" data-toggle="tab">People who need help</Link></li>
                                                 <li className={ this.selectedTab === 1 ? 'active' : ''}><Link id="1" to="/administration/archivedRegistrations/organizationsNeedHelp" role="tab" data-toggle="tab">Organizations need help</Link></li>
                                                 <li className={ this.selectedTab === 2 ? 'active' : ''}><Link id="2" to="/administration/archivedRegistrations/peopleWantToHelp" role="tab" data-toggle="tab">People who want to help</Link></li>

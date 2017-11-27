@@ -7,8 +7,8 @@ import { IContactUs, DataFilter } from '../../interfaces'
 import { ContactUsController } from '../controller'
 import { convertFromObservable } from '../../../utils/utils'
 
-let ModalContainer = require('react-modal-dialog').ModalContainer
-let ModalDialog = require('react-modal-dialog').ModalDialog
+//let ModalContainer = require('react-modal-dialog').ModalContainer
+//let ModalDialog = require('react-modal-dialog').ModalDialog
 
 import { CreateEmailResponse } from '../createEmail/createEmail'
 
@@ -214,12 +214,13 @@ export class ContactRequestsComponent extends React.Component<IContactRequests,{
                     <div className="row">
                         <div className="col-sm-6">
                             {
-                                this.isShowingModal && this.selectedContactRequest &&
+                                this.isShowingModal && this.selectedContactRequest && true
+                                /*
                                 <ModalContainer onClose={this.handleCloseModal}>
                                     <ModalDialog onClose={this.handleCloseModal}>
                                         <CreateEmailResponse contactRequest={this.selectedContactRequest} closeModal={this.handleCloseModal} controller={this.props.controller}/>
                                     </ModalDialog>
-                                </ModalContainer>                            
+                                </ModalContainer>*/
                             }                                     
                         </div>
                     </div>                                     

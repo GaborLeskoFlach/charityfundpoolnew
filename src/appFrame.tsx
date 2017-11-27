@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 import {observable } from 'mobx'
 import './styles.css'
 import Loader from 'react-loaders'
+import * as firebase from 'firebase';
 
 //Ugh...no no no....shouldn't be this way
 //TODO Remove these guids immediately

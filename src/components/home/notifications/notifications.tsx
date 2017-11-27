@@ -5,6 +5,7 @@ import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { NotificationsReceived } from './received/notifications'
 import { NotificationsSent } from './sent/notifications'
+import { PropTypes}  from 'prop-types'
 
 @observer
 export class Notifications extends React.Component<{},{}>{
@@ -14,7 +15,7 @@ export class Notifications extends React.Component<{},{}>{
     @observable selectedTab : string = '0'
 
     static contextTypes: React.ValidationMap<any> = {
-        router: React.PropTypes.func.isRequired
+        router: PropTypes.func.isRequired
     }
 
     constructor(props)
@@ -109,7 +110,7 @@ export class Notifications extends React.Component<{},{}>{
                             <div className="donate-section padding">				
                                 <div className="donate-tab text-center">
                                     <div id="donate">
-                                        <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} value={this.selectedTab} >
+                                        <ul className="tab-list list-inline" role="tablist" onClick={this.handleTabSelection} >
                                             <li className={ this.selectedTab === '0' ? 'active' : ''}><Link id="0" to="/notifications/received" role="tab" data-toggle="tab">Received</Link></li>
                                             <li className={ this.selectedTab === '1' ? 'active' : ''}><Link id="1" to="/notifications/sent" role="tab" data-toggle="tab">Sent</Link></li>
                                         </ul>                                            
